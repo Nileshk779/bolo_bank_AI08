@@ -1,0 +1,80 @@
+[
+  {
+    "customer_id": "CUST001",
+    "name": "Ramesh Patil",
+    "age": 68,
+    "preferred_language": "Marathi",
+    "account_type": "Savings",
+    "account_number_masked": "XXXXXX4321",
+    "balance": 12450.0,
+    "branch": "Solapur Main",
+    "customer_segment": "Senior Citizen",
+    "kyc_status": "Verified",
+    "recent_issue": "Savings account opening"
+  },
+  {
+    "customer_id": "CUST002",
+    "name": "Meena Deshmukh",
+    "age": 72,
+    "preferred_language": "Hindi",
+    "account_type": "Savings",
+    "account_number_masked": "XXXXXX8921",
+    "balance": 8700.5,
+    "branch": "Solapur Main",
+    "customer_segment": "Senior Citizen",
+    "kyc_status": "Verified",
+    "recent_issue": "Balance enquiry"
+  },
+  {
+    "customer_id": "CUST003",
+    "name": "Shankar Jadhav",
+    "age": 56,
+    "preferred_language": "Marathi",
+    "account_type": "Current",
+    "account_number_masked": "XXXXXX1774",
+    "balance": 48320.75,
+    "branch": "Akkalkot Road",
+    "customer_segment": "Regular",
+    "kyc_status": "Verified",
+    "recent_issue": "Debit card lost"
+  },
+  {
+    "customer_id": "CUST004",
+    "name": "Savitri Pawar",
+    "age": 66,
+    "preferred_language": "Kannada",
+    "account_type": "Savings",
+    "account_number_masked": "XXXXXX6250",
+    "balance": 21980.0,
+    "branch": "Hotgi Road",
+    "customer_segment": "Senior Citizen",
+    "kyc_status": "Update Required",
+    "recent_issue": "KYC update"
+  },
+  {
+    "customer_id": "CUST005",
+    "name": "Vijay Kulkarni",
+    "age": 44,
+    "preferred_language": "English",
+    "account_type": "Savings",
+    "account_number_masked": "XXXXXX3016",
+    "balance": 35470.25,
+    "branch": "Solapur Main",
+    "customer_segment": "Regular",
+    "kyc_status": "Verified",
+    "recent_issue": "UPI transaction pending"
+  },
+  {
+    "customer_id": "CUST006",
+    "name": "Lakshmi Reddy",
+    "age": 61,
+    "preferred_language": "Telugu",
+    "account_type": "Savings",
+    "account_number_masked": "XXXXXX7842",
+    "balance": 16780.0,
+    "branch": "Market Yard",
+    "customer_segment": "Regular",
+    "kyc_status": "Verified",
+    "recent_issue": "Pension credit information"
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "_note": "SYNTHETIC demo data. What each demo customer owns, their work and the needs they have mentioned to staff — used to match newly approved schemes to existing customers (services/scheme_alert_service.py). Only customers with offers_consent=true are ever matched. In production this would come from the bank's CRM with recorded consent.",
+  "profiles": [
+    {
+      "customer_id": "CUST001",
+      "assets": {"gold_grams": 25, "land_acres": 3, "house": true, "fd_amount": null},
+      "occupation": "farmer",
+      "interests": ["farming", "medical"],
+      "offers_consent": true
+    },
+    {
+      "customer_id": "CUST002",
+      "assets": {"gold_grams": 40, "land_acres": null, "house": true, "fd_amount": null},
+      "occupation": "pensioner",
+      "interests": ["medical", "home"],
+      "offers_consent": true
+    },
+    {
+      "customer_id": "CUST003",
+      "assets": {"gold_grams": null, "land_acres": null, "house": true, "fd_amount": 200000},
+      "occupation": "business",
+      "interests": ["business"],
+      "offers_consent": true
+    },
+    {
+      "customer_id": "CUST004",
+      "assets": {"gold_grams": 30, "land_acres": null, "house": true, "fd_amount": null},
+      "occupation": "other",
+      "interests": ["medical", "home"],
+      "offers_consent": true
+    },
+    {
+      "customer_id": "CUST005",
+      "assets": {"gold_grams": null, "land_acres": null, "house": true, "fd_amount": 100000},
+      "occupation": "salaried",
+      "interests": ["home", "education"],
+      "offers_consent": false
+    },
+    {
+      "customer_id": "CUST006",
+      "assets": {"gold_grams": 10, "land_acres": null, "house": false, "fd_amount": null},
+      "occupation": "farmer",
+      "interests": ["farming"],
+      "offers_consent": true
+    }
+  ]
+}

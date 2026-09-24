@@ -1,0 +1,252 @@
+[
+  {
+    "text": "I want to open a savings account",
+    "intent": "account_opening",
+    "language": "English"
+  },
+  {
+    "text": "What documents are needed to open an account?",
+    "intent": "account_opening",
+    "language": "English"
+  },
+  {
+    "text": "मुझे नया बचत खाता खोलना है",
+    "intent": "account_opening",
+    "language": "Hindi"
+  },
+  {
+    "text": "खाता खोलने के लिए कौन से दस्तावेज चाहिए?",
+    "intent": "account_opening",
+    "language": "Hindi"
+  },
+  {
+    "text": "मला नवीन बचत खाते उघडायचे आहे",
+    "intent": "account_opening",
+    "language": "Marathi"
+  },
+  {
+    "text": "खाते उघडण्यासाठी कोणती कागदपत्रे लागतात?",
+    "intent": "account_opening",
+    "language": "Marathi"
+  },
+  {
+    "text": "ನನಗೆ ಹೊಸ ಉಳಿತಾಯ ಖಾತೆ ತೆರೆಯಬೇಕು",
+    "intent": "account_opening",
+    "language": "Kannada"
+  },
+  {
+    "text": "ಖಾತೆ ತೆರೆಯಲು ಯಾವ ದಾಖಲೆಗಳು ಬೇಕು?",
+    "intent": "account_opening",
+    "language": "Kannada"
+  },
+  {
+    "text": "నాకు కొత్త సేవింగ్స్ ఖాతా తెరవాలి",
+    "intent": "account_opening",
+    "language": "Telugu"
+  },
+  {
+    "text": "ఖాతా తెరవడానికి ఏ పత్రాలు కావాలి?",
+    "intent": "account_opening",
+    "language": "Telugu"
+  },
+  {
+    "text": "What is my balance?",
+    "intent": "balance_enquiry",
+    "language": "English"
+  },
+  {
+    "text": "Show my available balance",
+    "intent": "balance_enquiry",
+    "language": "English"
+  },
+  {
+    "text": "मेरे खाते में कितना बैलेंस है?",
+    "intent": "balance_enquiry",
+    "language": "Hindi"
+  },
+  {
+    "text": "मेरा उपलब्ध बैलेंस दिखाओ",
+    "intent": "balance_enquiry",
+    "language": "Hindi"
+  },
+  {
+    "text": "माझ्या खात्यात किती शिल्लक आहे?",
+    "intent": "balance_enquiry",
+    "language": "Marathi"
+  },
+  {
+    "text": "माझा उपलब्ध बॅलन्स दाखवा",
+    "intent": "balance_enquiry",
+    "language": "Marathi"
+  },
+  {
+    "text": "ನನ್ನ ಖಾತೆಯಲ್ಲಿ ಎಷ್ಟು ಬ್ಯಾಲೆನ್ಸ್ ಇದೆ?",
+    "intent": "balance_enquiry",
+    "language": "Kannada"
+  },
+  {
+    "text": "ನನ್ನ ಲಭ್ಯ ಬ್ಯಾಲೆನ್ಸ್ ತೋರಿಸಿ",
+    "intent": "balance_enquiry",
+    "language": "Kannada"
+  },
+  {
+    "text": "నా ఖాతాలో ఎంత బ్యాలెన్స్ ఉంది?",
+    "intent": "balance_enquiry",
+    "language": "Telugu"
+  },
+  {
+    "text": "నా అందుబాటులో ఉన్న బ్యాలెన్స్ చూపించండి",
+    "intent": "balance_enquiry",
+    "language": "Telugu"
+  },
+  {
+    "text": "I lost my debit card",
+    "intent": "lost_card",
+    "language": "English"
+  },
+  {
+    "text": "How do I block my card?",
+    "intent": "lost_card",
+    "language": "English"
+  },
+  {
+    "text": "मेरा डेबिट कार्ड खो गया है",
+    "intent": "lost_card",
+    "language": "Hindi"
+  },
+  {
+    "text": "कार्ड कैसे ब्लॉक करूँ?",
+    "intent": "lost_card",
+    "language": "Hindi"
+  },
+  {
+    "text": "माझे डेबिट कार्ड हरवले आहे",
+    "intent": "lost_card",
+    "language": "Marathi"
+  },
+  {
+    "text": "माझे कार्ड कसे ब्लॉक करू?",
+    "intent": "lost_card",
+    "language": "Marathi"
+  },
+  {
+    "text": "ನನ್ನ ಡೆಬಿಟ್ ಕಾರ್ಡ್ ಕಳೆದುಹೋಗಿದೆ",
+    "intent": "lost_card",
+    "language": "Kannada"
+  },
+  {
+    "text": "ನನ್ನ ಕಾರ್ಡ್ ಅನ್ನು ಹೇಗೆ ಬ್ಲಾಕ್ ಮಾಡಲಿ?",
+    "intent": "lost_card",
+    "language": "Kannada"
+  },
+  {
+    "text": "నా డెబిట్ కార్డ్ పోయింది",
+    "intent": "lost_card",
+    "language": "Telugu"
+  },
+  {
+    "text": "నా కార్డ్‌ను ఎలా బ్లాక్ చేయాలి?",
+    "intent": "lost_card",
+    "language": "Telugu"
+  },
+  {
+    "text": "I need to update my KYC",
+    "intent": "kyc_update",
+    "language": "English"
+  },
+  {
+    "text": "What documents are needed for KYC update?",
+    "intent": "kyc_update",
+    "language": "English"
+  },
+  {
+    "text": "मुझे केवाईसी अपडेट करनी है",
+    "intent": "kyc_update",
+    "language": "Hindi"
+  },
+  {
+    "text": "केवाईसी अपडेट के लिए क्या चाहिए?",
+    "intent": "kyc_update",
+    "language": "Hindi"
+  },
+  {
+    "text": "मला KYC अपडेट करायची आहे",
+    "intent": "kyc_update",
+    "language": "Marathi"
+  },
+  {
+    "text": "KYC अपडेटसाठी काय लागते?",
+    "intent": "kyc_update",
+    "language": "Marathi"
+  },
+  {
+    "text": "ನನ್ನ KYC ನವೀಕರಿಸಬೇಕು",
+    "intent": "kyc_update",
+    "language": "Kannada"
+  },
+  {
+    "text": "KYC ಅಪ್ಡೇಟ್‌ಗೆ ಏನು ಬೇಕು?",
+    "intent": "kyc_update",
+    "language": "Kannada"
+  },
+  {
+    "text": "నా KYC అప్‌డేట్ చేయాలి",
+    "intent": "kyc_update",
+    "language": "Telugu"
+  },
+  {
+    "text": "KYC అప్‌డేట్‌కు ఏ పత్రాలు కావాలి?",
+    "intent": "kyc_update",
+    "language": "Telugu"
+  },
+  {
+    "text": "My UPI payment is pending",
+    "intent": "upi_pending",
+    "language": "English"
+  },
+  {
+    "text": "The UPI transaction is stuck",
+    "intent": "upi_pending",
+    "language": "English"
+  },
+  {
+    "text": "मेरा यूपीआई पेमेंट पेंडिंग है",
+    "intent": "upi_pending",
+    "language": "Hindi"
+  },
+  {
+    "text": "यूपीआई ट्रांजैक्शन अटका हुआ है",
+    "intent": "upi_pending",
+    "language": "Hindi"
+  },
+  {
+    "text": "माझे UPI पेमेंट पेंडिंग आहे",
+    "intent": "upi_pending",
+    "language": "Marathi"
+  },
+  {
+    "text": "UPI व्यवहार अडकला आहे",
+    "intent": "upi_pending",
+    "language": "Marathi"
+  },
+  {
+    "text": "ನನ್ನ UPI ಪಾವತಿ ಪೆಂಡಿಂಗ್ ಆಗಿದೆ",
+    "intent": "upi_pending",
+    "language": "Kannada"
+  },
+  {
+    "text": "UPI ವ್ಯವಹಾರ ಅಟಕಿದೆ",
+    "intent": "upi_pending",
+    "language": "Kannada"
+  },
+  {
+    "text": "నా UPI పేమెంట్ పెండింగ్‌లో ఉంది",
+    "intent": "upi_pending",
+    "language": "Telugu"
+  },
+  {
+    "text": "UPI లావాదేవీ ఆగిపోయింది",
+    "intent": "upi_pending",
+    "language": "Telugu"
+  }
+]

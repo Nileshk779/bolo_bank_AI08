@@ -1,0 +1,29 @@
+[
+  {
+    "transaction_id": "TXN1001",
+    "customer_id": "CUST001",
+    "date": "2026-09-07",
+    "type": "Credit",
+    "description": "Pension Credit",
+    "amount": 18000.0,
+    "status": "Success"
+  },
+  {
+    "transaction_id": "TXN1002",
+    "customer_id": "CUST001",
+    "date": "2026-09-08",
+    "type": "Debit",
+    "description": "Grocery Purchase",
+    "amount": 1280.0,
+    "status": "Success"
+  },
+  {
+    "transaction_id": "TXN1003",
+    "customer_id": "CUST005",
+    "date": "2026-09-10",
+    "type": "Debit",
+    "description": "UPI Transfer",
+    "amount": 2500.0,
+    "status": "Pending"
+  }
+]

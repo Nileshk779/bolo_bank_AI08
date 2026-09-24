@@ -1,0 +1,16 @@
+[
+  {
+    "session_id": "SES-DEMO-001",
+    "customer_id": "CUST001",
+    "language": "Marathi",
+    "customer_issue": "Savings account opening",
+    "summary": "Customer asked how to open a savings account and what documents may be required.",
+    "key_points": [
+      "Account opening process",
+      "Identity/address documents",
+      "Human verification required"
+    ],
+    "next_action": "Employee to confirm bank-specific requirements.",
+    "status": "Completed"
+  }
+]

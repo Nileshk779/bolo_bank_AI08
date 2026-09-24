@@ -1,0 +1,352 @@
+[
+  {
+    "id": "TQ001",
+    "language": "English",
+    "query": "I want to open a savings account",
+    "expected_intent": "account_opening",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ002",
+    "language": "English",
+    "query": "What documents are needed to open an account?",
+    "expected_intent": "account_opening",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ003",
+    "language": "Hindi",
+    "query": "मुझे नया बचत खाता खोलना है",
+    "expected_intent": "account_opening",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ004",
+    "language": "Hindi",
+    "query": "खाता खोलने के लिए कौन से दस्तावेज चाहिए?",
+    "expected_intent": "account_opening",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ005",
+    "language": "Marathi",
+    "query": "मला नवीन बचत खाते उघडायचे आहे",
+    "expected_intent": "account_opening",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ006",
+    "language": "Marathi",
+    "query": "खाते उघडण्यासाठी कोणती कागदपत्रे लागतात?",
+    "expected_intent": "account_opening",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ007",
+    "language": "Kannada",
+    "query": "ನನಗೆ ಹೊಸ ಉಳಿತಾಯ ಖಾತೆ ತೆರೆಯಬೇಕು",
+    "expected_intent": "account_opening",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ008",
+    "language": "Kannada",
+    "query": "ಖಾತೆ ತೆರೆಯಲು ಯಾವ ದಾಖಲೆಗಳು ಬೇಕು?",
+    "expected_intent": "account_opening",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ009",
+    "language": "Telugu",
+    "query": "నాకు కొత్త సేవింగ్స్ ఖాతా తెరవాలి",
+    "expected_intent": "account_opening",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ010",
+    "language": "Telugu",
+    "query": "ఖాతా తెరవడానికి ఏ పత్రాలు కావాలి?",
+    "expected_intent": "account_opening",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ011",
+    "language": "English",
+    "query": "What is my balance?",
+    "expected_intent": "balance_enquiry",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ012",
+    "language": "English",
+    "query": "Show my available balance",
+    "expected_intent": "balance_enquiry",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ013",
+    "language": "Hindi",
+    "query": "मेरे खाते में कितना बैलेंस है?",
+    "expected_intent": "balance_enquiry",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ014",
+    "language": "Hindi",
+    "query": "मेरा उपलब्ध बैलेंस दिखाओ",
+    "expected_intent": "balance_enquiry",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ015",
+    "language": "Marathi",
+    "query": "माझ्या खात्यात किती शिल्लक आहे?",
+    "expected_intent": "balance_enquiry",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ016",
+    "language": "Marathi",
+    "query": "माझा उपलब्ध बॅलन्स दाखवा",
+    "expected_intent": "balance_enquiry",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ017",
+    "language": "Kannada",
+    "query": "ನನ್ನ ಖಾತೆಯಲ್ಲಿ ಎಷ್ಟು ಬ್ಯಾಲೆನ್ಸ್ ಇದೆ?",
+    "expected_intent": "balance_enquiry",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ018",
+    "language": "Kannada",
+    "query": "ನನ್ನ ಲಭ್ಯ ಬ್ಯಾಲೆನ್ಸ್ ತೋರಿಸಿ",
+    "expected_intent": "balance_enquiry",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ019",
+    "language": "Telugu",
+    "query": "నా ఖాతాలో ఎంత బ్యాలెన్స్ ఉంది?",
+    "expected_intent": "balance_enquiry",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ020",
+    "language": "Telugu",
+    "query": "నా అందుబాటులో ఉన్న బ్యాలెన్స్ చూపించండి",
+    "expected_intent": "balance_enquiry",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ021",
+    "language": "English",
+    "query": "I lost my debit card",
+    "expected_intent": "lost_card",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ022",
+    "language": "English",
+    "query": "How do I block my card?",
+    "expected_intent": "lost_card",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ023",
+    "language": "Hindi",
+    "query": "मेरा डेबिट कार्ड खो गया है",
+    "expected_intent": "lost_card",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ024",
+    "language": "Hindi",
+    "query": "कार्ड कैसे ब्लॉक करूँ?",
+    "expected_intent": "lost_card",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ025",
+    "language": "Marathi",
+    "query": "माझे डेबिट कार्ड हरवले आहे",
+    "expected_intent": "lost_card",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ026",
+    "language": "Marathi",
+    "query": "माझे कार्ड कसे ब्लॉक करू?",
+    "expected_intent": "lost_card",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ027",
+    "language": "Kannada",
+    "query": "ನನ್ನ ಡೆಬಿಟ್ ಕಾರ್ಡ್ ಕಳೆದುಹೋಗಿದೆ",
+    "expected_intent": "lost_card",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ028",
+    "language": "Kannada",
+    "query": "ನನ್ನ ಕಾರ್ಡ್ ಅನ್ನು ಹೇಗೆ ಬ್ಲಾಕ್ ಮಾಡಲಿ?",
+    "expected_intent": "lost_card",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ029",
+    "language": "Telugu",
+    "query": "నా డెబిట్ కార్డ్ పోయింది",
+    "expected_intent": "lost_card",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ030",
+    "language": "Telugu",
+    "query": "నా కార్డ్‌ను ఎలా బ్లాక్ చేయాలి?",
+    "expected_intent": "lost_card",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ031",
+    "language": "English",
+    "query": "I need to update my KYC",
+    "expected_intent": "kyc_update",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ032",
+    "language": "English",
+    "query": "What documents are needed for KYC update?",
+    "expected_intent": "kyc_update",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ033",
+    "language": "Hindi",
+    "query": "मुझे केवाईसी अपडेट करनी है",
+    "expected_intent": "kyc_update",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ034",
+    "language": "Hindi",
+    "query": "केवाईसी अपडेट के लिए क्या चाहिए?",
+    "expected_intent": "kyc_update",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ035",
+    "language": "Marathi",
+    "query": "मला KYC अपडेट करायची आहे",
+    "expected_intent": "kyc_update",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ036",
+    "language": "Marathi",
+    "query": "KYC अपडेटसाठी काय लागते?",
+    "expected_intent": "kyc_update",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ037",
+    "language": "Kannada",
+    "query": "ನನ್ನ KYC ನವೀಕರಿಸಬೇಕು",
+    "expected_intent": "kyc_update",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ038",
+    "language": "Kannada",
+    "query": "KYC ಅಪ್ಡೇಟ್‌ಗೆ ಏನು ಬೇಕು?",
+    "expected_intent": "kyc_update",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ039",
+    "language": "Telugu",
+    "query": "నా KYC అప్‌డేట్ చేయాలి",
+    "expected_intent": "kyc_update",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ040",
+    "language": "Telugu",
+    "query": "KYC అప్‌డేట్‌కు ఏ పత్రాలు కావాలి?",
+    "expected_intent": "kyc_update",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ041",
+    "language": "English",
+    "query": "My UPI payment is pending",
+    "expected_intent": "upi_pending",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ042",
+    "language": "English",
+    "query": "The UPI transaction is stuck",
+    "expected_intent": "upi_pending",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ043",
+    "language": "Hindi",
+    "query": "मेरा यूपीआई पेमेंट पेंडिंग है",
+    "expected_intent": "upi_pending",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ044",
+    "language": "Hindi",
+    "query": "यूपीआई ट्रांजैक्शन अटका हुआ है",
+    "expected_intent": "upi_pending",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ045",
+    "language": "Marathi",
+    "query": "माझे UPI पेमेंट पेंडिंग आहे",
+    "expected_intent": "upi_pending",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ046",
+    "language": "Marathi",
+    "query": "UPI व्यवहार अडकला आहे",
+    "expected_intent": "upi_pending",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ047",
+    "language": "Kannada",
+    "query": "ನನ್ನ UPI ಪಾವತಿ ಪೆಂಡಿಂಗ್ ಆಗಿದೆ",
+    "expected_intent": "upi_pending",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ048",
+    "language": "Kannada",
+    "query": "UPI ವ್ಯವಹಾರ ಅಟಕಿದೆ",
+    "expected_intent": "upi_pending",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ049",
+    "language": "Telugu",
+    "query": "నా UPI పేమెంట్ పెండింగ్‌లో ఉంది",
+    "expected_intent": "upi_pending",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  },
+  {
+    "id": "TQ050",
+    "language": "Telugu",
+    "query": "UPI లావాదేవీ ఆగిపోయింది",
+    "expected_intent": "upi_pending",
+    "expected_behavior": "Retrieve trusted knowledge; if confidence is low, escalate to staff."
+  }
+]

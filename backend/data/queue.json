@@ -1,0 +1,32 @@
+[
+  {
+    "token": "BOL1025",
+    "customer_id": "CUST001",
+    "customer_name": "Ramesh Patil",
+    "issue": "Account Opening",
+    "priority": "High",
+    "status": "Waiting",
+    "wait_minutes": 12,
+    "language": "Marathi"
+  },
+  {
+    "token": "BOL1024",
+    "customer_id": "CUST002",
+    "customer_name": "Meena Deshmukh",
+    "issue": "Balance Enquiry",
+    "priority": "High",
+    "status": "In Progress",
+    "wait_minutes": 8,
+    "language": "Hindi"
+  },
+  {
+    "token": "BOL1023",
+    "customer_id": "CUST003",
+    "customer_name": "Shankar Jadhav",
+    "issue": "Lost Debit Card",
+    "priority": "High",
+    "status": "Waiting",
+    "wait_minutes": 15,
+    "language": "Marathi"
+  }
+]

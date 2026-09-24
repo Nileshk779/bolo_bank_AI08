@@ -1,0 +1,256 @@
+{
+  "_note": "SIMULATED announcement feed for the daily scheme-update demo. These are not real circulars. In production this file is replaced by a connector to official sources (RBI notifications, the bank's product team, government scheme portals). Items become visible to the daily job only on or after their published_on date. `demo_extraction` is the structured draft used when the LLM is unavailable (SCHEME_EXTRACTION_MODE=preset).",
+  "items": [
+    {
+      "feed_id": "demo-2026-09-20-senior-gold",
+      "published_on": "2026-09-20",
+      "source_name": "Simulated bank product circular (demo)",
+      "source_url": null,
+      "title": "Senior Citizen Gold Loan with reduced processing fee",
+      "raw_text": "Product circular (demo). With effect from 20 September 2026 the bank introduces the Senior Citizen Gold Loan for customers aged 60 years and above. The loan is sanctioned against pledge of gold ornaments, for any personal, medical or household purpose. Processing fee is reduced for senior citizens and a simple bullet or monthly repayment option is available. Loan amount is up to 75% of the assessed value of the gold. Customers should bring identity proof, address proof, proof of age, a photograph and the gold ornaments. The offer is valid until 31 March 2027.",
+      "demo_extraction": {
+        "id": "senior_gold_loan",
+        "kind": "bank_product",
+        "name": {
+          "en": "Senior Citizen Gold Loan",
+          "hi": "वरिष्ठ नागरिक गोल्ड लोन",
+          "mr": "ज्येष्ठ नागरिक सोने तारण कर्ज",
+          "kn": "ಹಿರಿಯ ನಾಗರಿಕರ ಚಿನ್ನದ ಸಾಲ",
+          "te": "సీనియర్ సిటిజన్ బంగారు రుణం"
+        },
+        "summary": {
+          "en": "A gold loan for customers aged 60 and above with a lower processing fee and a simple repayment plan.",
+          "hi": "60 वर्ष और उससे अधिक उम्र के ग्राहकों के लिए कम प्रोसेसिंग शुल्क और आसान चुकौती वाला गोल्ड लोन।",
+          "mr": "60 वर्षे व त्याहून अधिक वयाच्या ग्राहकांसाठी कमी प्रक्रिया शुल्क आणि सोपी परतफेड असलेले सोने तारण कर्ज.",
+          "kn": "60 ವರ್ಷ ಮತ್ತು ಮೇಲ್ಪಟ್ಟ ಗ್ರಾಹಕರಿಗೆ ಕಡಿಮೆ ಪ್ರಕ್ರಿಯಾ ಶುಲ್ಕ ಮತ್ತು ಸರಳ ಮರುಪಾವತಿಯ ಚಿನ್ನದ ಸಾಲ.",
+          "te": "60 ఏళ్లు మరియు ఆపై వయసు ఉన్న వినియోగదారులకు తక్కువ ప్రాసెసింగ్ ఫీజు, సులభమైన చెల్లింపుతో బంగారు రుణం."
+        },
+        "rules": {
+          "collateral_any": [
+            "gold"
+          ],
+          "occupations": null,
+          "purposes": [
+            "medical",
+            "personal",
+            "home"
+          ],
+          "min_age": 60,
+          "max_age": null
+        },
+        "estimate": {
+          "method": "gold_value",
+          "ratio": 0.75
+        },
+        "documents": [
+          "id_proof",
+          "address_proof",
+          "age_proof",
+          "photo",
+          "gold_ornaments"
+        ],
+        "valid_until": "2027-03-31",
+        "staff_checks": [
+          "Verify age proof shows 60 years or above"
+        ]
+      }
+    },
+    {
+      "feed_id": "demo-2026-09-22-kcc-dairy",
+      "published_on": "2026-09-22",
+      "source_name": "Simulated government notification (demo)",
+      "source_url": null,
+      "title": "Kisan Credit Card extended to dairy and poultry farmers",
+      "raw_text": "Notification (demo). Farmers engaged in dairy, goat rearing or poultry may obtain a Kisan Credit Card for working capital needs such as feed, veterinary care and shed maintenance. Ownership of agricultural land is not required for this facility. Applicants must be between 18 and 75 years of age. Documents required: identity proof, address proof, photograph, and details of livestock or poultry held.",
+      "demo_extraction": {
+        "id": "kcc_animal_husbandry",
+        "kind": "government_scheme",
+        "name": {
+          "en": "Kisan Credit Card for Dairy & Poultry Farmers",
+          "hi": "डेयरी और मुर्गीपालन किसानों के लिए किसान क्रेडिट कार्ड",
+          "mr": "दुग्ध व कुक्कुटपालन शेतकऱ्यांसाठी किसान क्रेडिट कार्ड",
+          "kn": "ಹೈನು ಮತ್ತು ಕೋಳಿ ಸಾಕಣೆ ರೈತರಿಗೆ ಕಿಸಾನ್ ಕ್ರೆಡಿಟ್ ಕಾರ್ಡ್",
+          "te": "పాడి, కోళ్ల పెంపకం రైతులకు కిసాన్ క్రెడిట్ కార్డ్"
+        },
+        "summary": {
+          "en": "Working-capital credit for farmers who keep cows, buffaloes, goats or poultry — even if they do not own farm land.",
+          "hi": "गाय, भैंस, बकरी या मुर्गी पालने वाले किसानों के लिए कार्यशील पूंजी ऋण — भले ही उनके पास खेती की ज़मीन न हो।",
+          "mr": "गाय, म्हैस, शेळी किंवा कोंबड्या पाळणाऱ्या शेतकऱ्यांसाठी खेळते भांडवल कर्ज — त्यांच्याकडे शेतजमीन नसली तरी.",
+          "kn": "ಹಸು, ಎಮ್ಮೆ, ಮೇಕೆ ಅಥವಾ ಕೋಳಿ ಸಾಕುವ ರೈತರಿಗೆ ದುಡಿಯುವ ಬಂಡವಾಳ ಸಾಲ — ಅವರ ಬಳಿ ಕೃಷಿ ಭೂಮಿ ಇಲ್ಲದಿದ್ದರೂ.",
+          "te": "ఆవులు, గేదెలు, మేకలు లేదా కోళ్లు పెంచే రైతులకు నిర్వహణ మూలధన రుణం — వారికి వ్యవసాయ భూమి లేకపోయినా."
+        },
+        "rules": {
+          "collateral_any": [],
+          "occupations": [
+            "farmer"
+          ],
+          "purposes": [
+            "farming"
+          ],
+          "min_age": 18,
+          "max_age": 75
+        },
+        "estimate": null,
+        "documents": [
+          "id_proof",
+          "address_proof",
+          "photo",
+          "crop_details"
+        ],
+        "valid_until": null,
+        "staff_checks": [
+          "Customer must keep dairy cattle, goats or poultry"
+        ]
+      }
+    },
+    {
+      "feed_id": "demo-2026-09-23-solar-pump",
+      "published_on": "2026-09-23",
+      "source_name": "Simulated government notification (demo)",
+      "source_url": null,
+      "title": "Solar irrigation pump loans linked to PM-KUSUM",
+      "raw_text": "Notification (demo). Banks may extend term loans to farmers for installing standalone solar irrigation pumps on their agricultural land under the PM-KUSUM framework. The farmer's share of the cost, after government subsidy, may be financed. Eligible borrowers are land-owning farmers up to 70 years of age. Documents: identity proof, photograph, land records and the vendor quotation for the pump.",
+      "demo_extraction": {
+        "id": "solar_pump_loan",
+        "kind": "government_scheme",
+        "name": {
+          "en": "Solar Pump Loan (PM-KUSUM linked)",
+          "hi": "सोलर पंप लोन (PM-KUSUM से जुड़ा)",
+          "mr": "सौर पंप कर्ज (PM-KUSUM शी जोडलेले)",
+          "kn": "ಸೌರ ಪಂಪ್ ಸಾಲ (PM-KUSUM ಸಂಬಂಧಿತ)",
+          "te": "సోలార్ పంప్ రుణం (PM-KUSUM అనుసంధానం)"
+        },
+        "summary": {
+          "en": "A loan for farmers to install a solar irrigation pump on their land. Government subsidy may cover part of the cost.",
+          "hi": "किसानों को अपनी ज़मीन पर सोलर सिंचाई पंप लगाने के लिए लोन। लागत का कुछ हिस्सा सरकारी सब्सिडी से मिल सकता है।",
+          "mr": "शेतकऱ्यांना त्यांच्या जमिनीवर सौर सिंचन पंप बसवण्यासाठी कर्ज. खर्चाचा काही भाग सरकारी अनुदानातून मिळू शकतो.",
+          "kn": "ರೈತರು ತಮ್ಮ ಭೂಮಿಯಲ್ಲಿ ಸೌರ ನೀರಾವರಿ ಪಂಪ್ ಅಳವಡಿಸಲು ಸಾಲ. ವೆಚ್ಚದ ಒಂದು ಭಾಗವನ್ನು ಸರ್ಕಾರಿ ಸಬ್ಸಿಡಿ ಭರಿಸಬಹುದು.",
+          "te": "రైతులు తమ భూమిలో సోలార్ సాగునీటి పంపు అమర్చుకోవడానికి రుణం. ఖర్చులో కొంత భాగం ప్రభుత్వ సబ్సిడీ ద్వారా రావచ్చు."
+        },
+        "rules": {
+          "collateral_any": [
+            "land"
+          ],
+          "occupations": [
+            "farmer"
+          ],
+          "purposes": [
+            "farming"
+          ],
+          "min_age": 18,
+          "max_age": 70
+        },
+        "estimate": null,
+        "documents": [
+          "id_proof",
+          "photo",
+          "land_records",
+          "quotation"
+        ],
+        "valid_until": null,
+        "staff_checks": [
+          "Subsidy depends on the state's PM-KUSUM allocation — confirm before promising it"
+        ]
+      }
+    },
+    {
+      "feed_id": "demo-2026-09-24-shg-microloan",
+      "published_on": "2026-09-24",
+      "source_name": "Simulated bank product circular (demo)",
+      "source_url": null,
+      "title": "Collateral-free micro-loans for women self-help group members",
+      "raw_text": "Product circular (demo). Women who are members of a registered self-help group (SHG) may avail collateral-free micro-loans to start or expand a small business such as tailoring, a grocery shop or food processing. Borrowers must be 18 years or older. Documents: identity proof, address proof, photograph and the SHG membership certificate issued by the group.",
+      "demo_extraction": {
+        "id": "shg_micro_loan",
+        "kind": "bank_product",
+        "name": {
+          "en": "Self-Help Group Micro-Loan for Women",
+          "hi": "महिला स्वयं सहायता समूह सूक्ष्म लोन",
+          "mr": "महिला बचत गट सूक्ष्म कर्ज",
+          "kn": "ಮಹಿಳಾ ಸ್ವಸಹಾಯ ಗುಂಪು ಕಿರು ಸಾಲ",
+          "te": "మహిళా స్వయం సహాయక సంఘం సూక్ష్మ రుణం"
+        },
+        "summary": {
+          "en": "Small loans without collateral for women who are members of a registered self-help group, to start or grow a small business.",
+          "hi": "पंजीकृत स्वयं सहायता समूह की सदस्य महिलाओं के लिए बिना गारंटी के छोटे लोन, छोटा व्यवसाय शुरू करने या बढ़ाने के लिए।",
+          "mr": "नोंदणीकृत बचत गटाच्या सदस्य महिलांसाठी लहान व्यवसाय सुरू करण्यासाठी किंवा वाढवण्यासाठी तारणाशिवाय छोटी कर्जे.",
+          "kn": "ನೋಂದಾಯಿತ ಸ್ವಸಹಾಯ ಗುಂಪಿನ ಸದಸ್ಯೆಯರಾದ ಮಹಿಳೆಯರಿಗೆ ಸಣ್ಣ ವ್ಯಾಪಾರ ಆರಂಭಿಸಲು ಅಥವಾ ಬೆಳೆಸಲು ಅಡಮಾನವಿಲ್ಲದ ಸಣ್ಣ ಸಾಲಗಳು.",
+          "te": "నమోదైన స్వయం సహాయక సంఘంలో సభ్యులైన మహిళలకు చిన్న వ్యాపారం ప్రారంభించడానికి లేదా పెంచడానికి తాకట్టు లేని చిన్న రుణాలు."
+        },
+        "rules": {
+          "collateral_any": [],
+          "occupations": [
+            "shg_member"
+          ],
+          "purposes": [
+            "business"
+          ],
+          "min_age": 18,
+          "max_age": null
+        },
+        "estimate": null,
+        "documents": [
+          "id_proof",
+          "address_proof",
+          "photo",
+          "shg_certificate"
+        ],
+        "valid_until": null,
+        "staff_checks": [
+          "Applicant must be a woman",
+          "Applicant must be a member of a registered self-help group (ask for the SHG certificate)"
+        ]
+      }
+    },
+    {
+      "feed_id": "demo-2026-10-01-home-repair",
+      "published_on": "2026-10-01",
+      "source_name": "Simulated bank product circular (demo)",
+      "source_url": null,
+      "title": "Festive home repair loan",
+      "raw_text": "Product circular (demo). For the festive season, the bank offers a short-term Home Repair Loan with reduced processing fee for salaried, self-employed, farmer and pensioner customers aged 21 to 70, to repair or improve their house. Documents: identity proof, address proof, photograph, income proof and property papers. Offer valid until 15 November 2026.",
+      "demo_extraction": {
+        "id": "festive_home_repair_loan",
+        "kind": "bank_product",
+        "name": {
+          "en": "Home Repair Loan — Festive Offer",
+          "hi": "घर मरम्मत लोन — त्योहार ऑफ़र",
+          "mr": "घर दुरुस्ती कर्ज — सणासुदीची ऑफर",
+          "kn": "ಮನೆ ದುರಸ್ತಿ ಸಾಲ — ಹಬ್ಬದ ಕೊಡುಗೆ",
+          "te": "ఇంటి మరమ్మతు రుణం — పండుగ ఆఫర్"
+        },
+        "summary": {
+          "en": "A short-term loan to repair or improve your house, with a reduced processing fee during the festive season.",
+          "hi": "त्योहारों के मौसम में कम प्रोसेसिंग शुल्क के साथ घर की मरम्मत या सुधार के लिए अल्पकालिक लोन।",
+          "mr": "सणासुदीच्या काळात कमी प्रक्रिया शुल्कासह घराची दुरुस्ती किंवा सुधारणा करण्यासाठी अल्पमुदतीचे कर्ज.",
+          "kn": "ಹಬ್ಬದ ಸಮಯದಲ್ಲಿ ಕಡಿಮೆ ಪ್ರಕ್ರಿಯಾ ಶುಲ್ಕದೊಂದಿಗೆ ಮನೆ ದುರಸ್ತಿ ಅಥವಾ ಸುಧಾರಣೆಗೆ ಅಲ್ಪಾವಧಿ ಸಾಲ.",
+          "te": "పండుగ సీజన్‌లో తగ్గిన ప్రాసెసింగ్ ఫీజుతో ఇంటి మరమ్మతు లేదా మెరుగుదల కోసం స్వల్పకాలిక రుణం."
+        },
+        "rules": {
+          "collateral_any": [],
+          "occupations": [
+            "salaried",
+            "business",
+            "farmer",
+            "pensioner"
+          ],
+          "purposes": [
+            "home"
+          ],
+          "min_age": 21,
+          "max_age": 70
+        },
+        "estimate": null,
+        "documents": [
+          "id_proof",
+          "address_proof",
+          "photo",
+          "income_proof",
+          "property_papers"
+        ],
+        "valid_until": "2026-11-15",
+        "staff_checks": []
+      }
+    }
+  ]
+}

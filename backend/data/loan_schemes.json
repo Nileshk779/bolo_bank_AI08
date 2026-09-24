@@ -1,0 +1,253 @@
+{
+  "_note": "Synthetic demo catalogue for the eligibility pre-check. Scheme descriptions are simplified summaries of real product/scheme types; exact limits, rates and rules change over time and must be confirmed by an authorized employee. Regional-language text is machine-assisted and needs native-speaker review.",
+  "catalogue_version": "demo-2026-09-24",
+  "reference_rates": {
+    "gold_22k_per_gram_inr": 10000,
+    "as_of": "2026-09-24",
+    "note": "Demo reference rate only. Staff must value the gold at the branch using the day's rate and purity test."
+  },
+  "schemes": [
+    {
+      "id": "gold_loan",
+      "kind": "bank_product",
+      "name": {
+        "en": "Gold Loan",
+        "hi": "गोल्ड लोन",
+        "mr": "सोने तारण कर्ज",
+        "kn": "ಚಿನ್ನದ ಸಾಲ",
+        "te": "బంగారు రుణం"
+      },
+      "summary": {
+        "en": "Get a loan quickly by keeping your gold jewellery safely with the bank. Your gold is returned when you repay.",
+        "hi": "अपने सोने के गहने बैंक में सुरक्षित रखकर जल्दी लोन पाएं। लोन चुकाने पर आपका सोना वापस मिल जाता है।",
+        "mr": "तुमचे सोन्याचे दागिने बँकेत सुरक्षित ठेवून लवकर कर्ज मिळवा. कर्ज फेडल्यावर तुमचे सोने परत मिळते.",
+        "kn": "ನಿಮ್ಮ ಚಿನ್ನದ ಆಭರಣಗಳನ್ನು ಬ್ಯಾಂಕ್‌ನಲ್ಲಿ ಸುರಕ್ಷಿತವಾಗಿ ಇಟ್ಟು ಬೇಗನೆ ಸಾಲ ಪಡೆಯಿರಿ. ಸಾಲ ತೀರಿಸಿದಾಗ ನಿಮ್ಮ ಚಿನ್ನ ವಾಪಸ್ ಸಿಗುತ್ತದೆ.",
+        "te": "మీ బంగారు ఆభరణాలను బ్యాంకులో సురక్షితంగా ఉంచి త్వరగా రుణం పొందండి. రుణం తీర్చినప్పుడు మీ బంగారం తిరిగి ఇస్తారు."
+      },
+      "rules": {"collateral_any": ["gold"], "occupations": null, "purposes": null, "min_age": 18, "max_age": null},
+      "estimate": {"method": "gold_value", "ratio": 0.75},
+      "documents": ["id_proof", "address_proof", "photo", "gold_ornaments"],
+      "source": {"name": "BoloBank demo product sheet", "url": null}
+    },
+    {
+      "id": "agri_gold_loan",
+      "kind": "bank_product",
+      "name": {
+        "en": "Agricultural Gold Loan",
+        "hi": "कृषि गोल्ड लोन",
+        "mr": "शेती सोने तारण कर्ज",
+        "kn": "ಕೃಷಿ ಚಿನ್ನದ ಸಾಲ",
+        "te": "వ్యవసాయ బంగారు రుణం"
+      },
+      "summary": {
+        "en": "A gold loan meant for farming needs such as seeds, fertiliser and crop expenses.",
+        "hi": "बीज, खाद और फसल के खर्च जैसी खेती की ज़रूरतों के लिए सोने पर लोन।",
+        "mr": "बियाणे, खते आणि पिकाच्या खर्चासारख्या शेतीच्या गरजांसाठी सोन्यावर कर्ज.",
+        "kn": "ಬೀಜ, ಗೊಬ್ಬರ ಮತ್ತು ಬೆಳೆ ಖರ್ಚುಗಳಂತಹ ಕೃಷಿ ಅಗತ್ಯಗಳಿಗಾಗಿ ಚಿನ್ನದ ಮೇಲೆ ಸಾಲ.",
+        "te": "విత్తనాలు, ఎరువులు, పంట ఖర్చుల వంటి వ్యవసాయ అవసరాల కోసం బంగారంపై రుణం."
+      },
+      "rules": {"collateral_any": ["gold"], "occupations": ["farmer"], "purposes": ["farming"], "min_age": 18, "max_age": null},
+      "estimate": {"method": "gold_value", "ratio": 0.75},
+      "documents": ["id_proof", "address_proof", "photo", "gold_ornaments", "land_records"],
+      "source": {"name": "BoloBank demo product sheet", "url": null}
+    },
+    {
+      "id": "kisan_credit_card",
+      "kind": "government_scheme",
+      "name": {
+        "en": "Kisan Credit Card (KCC)",
+        "hi": "किसान क्रेडिट कार्ड (KCC)",
+        "mr": "किसान क्रेडिट कार्ड (KCC)",
+        "kn": "ಕಿಸಾನ್ ಕ್ರೆಡಿಟ್ ಕಾರ್ಡ್ (KCC)",
+        "te": "కిసాన్ క్రెడిట్ కార్డ్ (KCC)"
+      },
+      "summary": {
+        "en": "A government-supported credit limit for farmers to pay for crops, farm expenses and allied work like dairy. Interest help may be available if you repay on time.",
+        "hi": "किसानों के लिए सरकार समर्थित क्रेडिट सीमा, जिससे फसल, खेती के खर्च और डेयरी जैसे कामों का भुगतान हो सके। समय पर चुकाने पर ब्याज में राहत मिल सकती है।",
+        "mr": "शेतकऱ्यांसाठी सरकार-समर्थित कर्ज मर्यादा — पीक, शेतीचा खर्च आणि दुग्धव्यवसायासारख्या कामांसाठी. वेळेवर परतफेड केल्यास व्याजात सवलत मिळू शकते.",
+        "kn": "ರೈತರಿಗೆ ಬೆಳೆ, ಕೃಷಿ ಖರ್ಚು ಮತ್ತು ಹೈನುಗಾರಿಕೆಯಂತಹ ಕೆಲಸಗಳಿಗೆ ಸರ್ಕಾರ ಬೆಂಬಲಿತ ಸಾಲ ಮಿತಿ. ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ಮರುಪಾವತಿ ಮಾಡಿದರೆ ಬಡ್ಡಿ ರಿಯಾಯಿತಿ ಸಿಗಬಹುದು.",
+        "te": "పంటలు, వ్యవసాయ ఖర్చులు, పాడి వంటి పనుల కోసం రైతులకు ప్రభుత్వ మద్దతు ఉన్న రుణ పరిమితి. సమయానికి చెల్లిస్తే వడ్డీ రాయితీ లభించవచ్చు."
+      },
+      "rules": {"collateral_any": ["land"], "occupations": ["farmer"], "purposes": ["farming"], "min_age": 18, "max_age": 75},
+      "estimate": null,
+      "documents": ["id_proof", "address_proof", "photo", "land_records", "crop_details"],
+      "source": {"name": "Government of India — myScheme", "url": "https://www.myscheme.gov.in"}
+    },
+    {
+      "id": "farm_investment_loan",
+      "kind": "bank_product",
+      "name": {
+        "en": "Farm Investment Loan",
+        "hi": "कृषि निवेश लोन",
+        "mr": "शेती गुंतवणूक कर्ज",
+        "kn": "ಕೃಷಿ ಹೂಡಿಕೆ ಸಾಲ",
+        "te": "వ్యవసాయ పెట్టుబడి రుణం"
+      },
+      "summary": {
+        "en": "A term loan against your farm land for long-term needs like a well, pipeline, tractor or drip irrigation.",
+        "hi": "कुआँ, पाइपलाइन, ट्रैक्टर या ड्रिप सिंचाई जैसी लंबी अवधि की ज़रूरतों के लिए खेती की ज़मीन पर लोन।",
+        "mr": "विहीर, पाइपलाइन, ट्रॅक्टर किंवा ठिबक सिंचन यांसारख्या दीर्घकालीन गरजांसाठी शेतजमिनीवर मुदत कर्ज.",
+        "kn": "ಬಾವಿ, ಪೈಪ್‌ಲೈನ್, ಟ್ರ್ಯಾಕ್ಟರ್ ಅಥವಾ ಹನಿ ನೀರಾವರಿಯಂತಹ ದೀರ್ಘಾವಧಿ ಅಗತ್ಯಗಳಿಗೆ ಕೃಷಿ ಭೂಮಿಯ ಮೇಲೆ ಅವಧಿ ಸಾಲ.",
+        "te": "బావి, పైప్‌లైన్, ట్రాక్టర్ లేదా బిందు సేద్యం వంటి దీర్ఘకాల అవసరాల కోసం వ్యవసాయ భూమిపై టర్మ్ రుణం."
+      },
+      "rules": {"collateral_any": ["land"], "occupations": ["farmer"], "purposes": ["farming"], "min_age": 18, "max_age": 70},
+      "estimate": null,
+      "documents": ["id_proof", "address_proof", "photo", "land_records", "quotation"],
+      "source": {"name": "BoloBank demo product sheet", "url": null}
+    },
+    {
+      "id": "loan_against_property",
+      "kind": "bank_product",
+      "name": {
+        "en": "Loan Against Property",
+        "hi": "प्रॉपर्टी पर लोन",
+        "mr": "मालमत्ता तारण कर्ज",
+        "kn": "ಆಸ್ತಿ ಅಡಮಾನ ಸಾಲ",
+        "te": "ఆస్తిపై రుణం"
+      },
+      "summary": {
+        "en": "Borrow a larger amount by pledging your house or property. You need a regular income to repay.",
+        "hi": "अपना घर या संपत्ति गिरवी रखकर बड़ी रकम का लोन लें। चुकाने के लिए नियमित आय ज़रूरी है।",
+        "mr": "तुमचे घर किंवा मालमत्ता तारण ठेवून मोठी रक्कम कर्जाने घ्या. परतफेडीसाठी नियमित उत्पन्न आवश्यक आहे.",
+        "kn": "ನಿಮ್ಮ ಮನೆ ಅಥವಾ ಆಸ್ತಿಯನ್ನು ಅಡವಿಟ್ಟು ದೊಡ್ಡ ಮೊತ್ತದ ಸಾಲ ಪಡೆಯಿರಿ. ಮರುಪಾವತಿಗೆ ನಿಯಮಿತ ಆದಾಯ ಬೇಕು.",
+        "te": "మీ ఇల్లు లేదా ఆస్తిని తాకట్టు పెట్టి పెద్ద మొత్తంలో రుణం పొందండి. తిరిగి చెల్లించడానికి క్రమమైన ఆదాయం అవసరం."
+      },
+      "rules": {"collateral_any": ["house"], "occupations": ["salaried", "business", "farmer", "pensioner"], "purposes": null, "min_age": 21, "max_age": 70},
+      "estimate": null,
+      "documents": ["id_proof", "address_proof", "photo", "property_papers", "income_proof"],
+      "source": {"name": "BoloBank demo product sheet", "url": null}
+    },
+    {
+      "id": "reverse_mortgage",
+      "kind": "bank_product",
+      "name": {
+        "en": "Reverse Mortgage for Senior Citizens",
+        "hi": "वरिष्ठ नागरिकों के लिए रिवर्स मॉर्गेज",
+        "mr": "ज्येष्ठ नागरिकांसाठी रिव्हर्स मॉर्गेज",
+        "kn": "ಹಿರಿಯ ನಾಗರಿಕರಿಗೆ ರಿವರ್ಸ್ ಮಾರ್ಟ್‌ಗೇಜ್",
+        "te": "సీనియర్ సిటిజన్లకు రివర్స్ మార్ట్‌గేజ్"
+      },
+      "summary": {
+        "en": "For home owners aged 60 or above: receive regular payments against your house while you keep living in it. No monthly repayment.",
+        "hi": "60 वर्ष या उससे अधिक उम्र के घर मालिकों के लिए: अपने घर में रहते हुए उसके बदले नियमित रकम पाएं। हर महीने किस्त नहीं चुकानी पड़ती।",
+        "mr": "60 वर्षे किंवा त्याहून अधिक वयाच्या घरमालकांसाठी: घरात राहत असतानाच घराच्या बदल्यात नियमित रक्कम मिळवा. दरमहा हप्ता भरावा लागत नाही.",
+        "kn": "60 ವರ್ಷ ಅಥವಾ ಮೇಲ್ಪಟ್ಟ ಮನೆ ಮಾಲೀಕರಿಗೆ: ಮನೆಯಲ್ಲೇ ವಾಸಿಸುತ್ತಾ ಅದರ ಆಧಾರದಲ್ಲಿ ನಿಯಮಿತ ಹಣ ಪಡೆಯಿರಿ. ಮಾಸಿಕ ಕಂತು ಕಟ್ಟಬೇಕಿಲ್ಲ.",
+        "te": "60 ఏళ్లు లేదా ఆపై వయసున్న ఇంటి యజమానులకు: ఇంట్లోనే నివసిస్తూ దానిపై క్రమం తప్పకుండా డబ్బు పొందండి. నెలవారీ వాయిదా కట్టనవసరం లేదు."
+      },
+      "rules": {"collateral_any": ["house"], "occupations": null, "purposes": ["medical", "personal", "home"], "min_age": 60, "max_age": null},
+      "estimate": null,
+      "documents": ["id_proof", "age_proof", "photo", "property_papers"],
+      "source": {"name": "BoloBank demo product sheet", "url": null}
+    },
+    {
+      "id": "loan_against_fd",
+      "kind": "bank_product",
+      "name": {
+        "en": "Loan Against Fixed Deposit",
+        "hi": "एफडी पर लोन",
+        "mr": "मुदत ठेवीवर कर्ज",
+        "kn": "ಸ್ಥಿರ ಠೇವಣಿ ಮೇಲೆ ಸಾಲ",
+        "te": "ఫిక్స్‌డ్ డిపాజిట్‌పై రుణం"
+      },
+      "summary": {
+        "en": "Borrow against your fixed deposit without breaking it. Your FD keeps earning interest.",
+        "hi": "अपनी फिक्स्ड डिपॉज़िट तोड़े बिना उस पर लोन लें। आपकी एफडी पर ब्याज मिलता रहता है।",
+        "mr": "तुमची मुदत ठेव (FD) न मोडता तिच्यावर कर्ज घ्या. तुमच्या FD वर व्याज मिळत राहते.",
+        "kn": "ನಿಮ್ಮ ಸ್ಥಿರ ಠೇವಣಿಯನ್ನು (FD) ಮುರಿಯದೆ ಅದರ ಮೇಲೆ ಸಾಲ ಪಡೆಯಿರಿ. ನಿಮ್ಮ FD ಗೆ ಬಡ್ಡಿ ಬರುತ್ತಲೇ ಇರುತ್ತದೆ.",
+        "te": "మీ ఫిక్స్‌డ్ డిపాజిట్ (FD)ని రద్దు చేయకుండానే దానిపై రుణం పొందండి. మీ FDపై వడ్డీ వస్తూనే ఉంటుంది."
+      },
+      "rules": {"collateral_any": ["fd"], "occupations": null, "purposes": null, "min_age": 18, "max_age": null},
+      "estimate": {"method": "fd_value", "ratio": 0.9},
+      "documents": ["id_proof", "fd_receipt"],
+      "source": {"name": "BoloBank demo product sheet", "url": null}
+    },
+    {
+      "id": "pm_mudra",
+      "kind": "government_scheme",
+      "name": {
+        "en": "PM Mudra Loan",
+        "hi": "प्रधानमंत्री मुद्रा लोन",
+        "mr": "प्रधानमंत्री मुद्रा कर्ज",
+        "kn": "ಪ್ರಧಾನಮಂತ್ರಿ ಮುದ್ರಾ ಸಾಲ",
+        "te": "ప్రధానమంత్రి ముద్ర రుణం"
+      },
+      "summary": {
+        "en": "Government scheme for small non-farm businesses, with no collateral needed. Stages: Shishu (up to ₹50,000), Kishore (up to ₹5 lakh), Tarun (up to ₹10 lakh).",
+        "hi": "छोटे गैर-कृषि व्यवसायों के लिए सरकारी योजना, बिना गारंटी के। श्रेणियाँ: शिशु (₹50,000 तक), किशोर (₹5 लाख तक), तरुण (₹10 लाख तक)।",
+        "mr": "लहान बिगरशेती व्यवसायांसाठी सरकारी योजना, तारणाशिवाय. प्रकार: शिशु (₹50,000 पर्यंत), किशोर (₹5 लाखांपर्यंत), तरुण (₹10 लाखांपर्यंत).",
+        "kn": "ಸಣ್ಣ ಕೃಷಿಯೇತರ ವ್ಯಾಪಾರಗಳಿಗೆ ಅಡಮಾನವಿಲ್ಲದ ಸರ್ಕಾರಿ ಯೋಜನೆ. ವಿಭಾಗಗಳು: ಶಿಶು (₹50,000 ವರೆಗೆ), ಕಿಶೋರ್ (₹5 ಲಕ್ಷದವರೆಗೆ), ತರುಣ್ (₹10 ಲಕ್ಷದವರೆಗೆ).",
+        "te": "చిన్న వ్యవసాయేతర వ్యాపారాలకు తాకట్టు అవసరం లేని ప్రభుత్వ పథకం. విభాగాలు: శిశు (₹50,000 వరకు), కిశోర్ (₹5 లక్షల వరకు), తరుణ్ (₹10 లక్షల వరకు)."
+      },
+      "rules": {"collateral_any": [], "occupations": ["business"], "purposes": ["business"], "min_age": 18, "max_age": null},
+      "estimate": null,
+      "documents": ["id_proof", "address_proof", "photo", "business_proof", "business_plan"],
+      "source": {"name": "Pradhan Mantri Mudra Yojana", "url": "https://www.mudra.org.in"}
+    },
+    {
+      "id": "pensioner_loan",
+      "kind": "bank_product",
+      "name": {
+        "en": "Pensioner Loan",
+        "hi": "पेंशनर लोन",
+        "mr": "निवृत्तीवेतनधारक कर्ज",
+        "kn": "ಪಿಂಚಣಿದಾರರ ಸಾಲ",
+        "te": "పెన్షనర్ రుణం"
+      },
+      "summary": {
+        "en": "A personal loan for pensioners who receive their pension in this bank. Repaid from your monthly pension.",
+        "hi": "इस बैंक में पेंशन पाने वाले पेंशनभोगियों के लिए पर्सनल लोन। मासिक पेंशन से चुकाया जाता है।",
+        "mr": "या बँकेत पेन्शन घेणाऱ्या निवृत्तीवेतनधारकांसाठी वैयक्तिक कर्ज. मासिक पेन्शनमधून परतफेड होते.",
+        "kn": "ಈ ಬ್ಯಾಂಕ್‌ನಲ್ಲಿ ಪಿಂಚಣಿ ಪಡೆಯುವವರಿಗೆ ವೈಯಕ್ತಿಕ ಸಾಲ. ಮಾಸಿಕ ಪಿಂಚಣಿಯಿಂದ ಮರುಪಾವತಿ.",
+        "te": "ఈ బ్యాంకులో పెన్షన్ పొందే వారికి వ్యక్తిగత రుణం. నెలవారీ పెన్షన్ నుంచి తిరిగి చెల్లించబడుతుంది."
+      },
+      "rules": {"collateral_any": [], "occupations": ["pensioner"], "purposes": ["medical", "personal", "home"], "min_age": 18, "max_age": 76},
+      "estimate": null,
+      "documents": ["id_proof", "address_proof", "photo", "pension_ppo", "bank_statement"],
+      "source": {"name": "BoloBank demo product sheet", "url": null}
+    },
+    {
+      "id": "education_loan",
+      "kind": "bank_product",
+      "name": {
+        "en": "Education Loan",
+        "hi": "शिक्षा लोन",
+        "mr": "शैक्षणिक कर्ज",
+        "kn": "ಶಿಕ್ಷಣ ಸಾಲ",
+        "te": "విద్యా రుణం"
+      },
+      "summary": {
+        "en": "For college or professional studies in India or abroad. A parent or guardian usually joins as co-borrower; security may be needed for larger amounts.",
+        "hi": "भारत या विदेश में कॉलेज या व्यावसायिक पढ़ाई के लिए। आमतौर पर माता-पिता या अभिभावक सह-आवेदक होते हैं; बड़ी रकम के लिए गारंटी लग सकती है।",
+        "mr": "भारतात किंवा परदेशात महाविद्यालयीन किंवा व्यावसायिक शिक्षणासाठी. सहसा पालक सह-कर्जदार असतात; मोठ्या रकमेसाठी तारण लागू शकते.",
+        "kn": "ಭಾರತ ಅಥವಾ ವಿದೇಶದಲ್ಲಿ ಕಾಲೇಜು ಅಥವಾ ವೃತ್ತಿಪರ ಅಧ್ಯಯನಕ್ಕಾಗಿ. ಸಾಮಾನ್ಯವಾಗಿ ಪೋಷಕರು ಸಹ-ಸಾಲಗಾರರಾಗುತ್ತಾರೆ; ದೊಡ್ಡ ಮೊತ್ತಕ್ಕೆ ಅಡಮಾನ ಬೇಕಾಗಬಹುದು.",
+        "te": "భారతదేశంలో లేదా విదేశాల్లో కళాశాల లేదా వృత్తి విద్య కోసం. సాధారణంగా తల్లిదండ్రులు సహ-రుణగ్రహీతగా ఉంటారు; పెద్ద మొత్తాలకు తాకట్టు అవసరం కావచ్చు."
+      },
+      "rules": {"collateral_any": [], "occupations": null, "purposes": ["education"], "min_age": 18, "max_age": null},
+      "estimate": null,
+      "documents": ["id_proof", "address_proof", "photo", "admission_letter", "fee_structure", "income_proof"],
+      "source": {"name": "Government of India — myScheme", "url": "https://www.myscheme.gov.in"}
+    },
+    {
+      "id": "home_loan",
+      "kind": "bank_product",
+      "name": {
+        "en": "Home Loan (check PMAY subsidy)",
+        "hi": "होम लोन (PMAY सब्सिडी देखें)",
+        "mr": "गृह कर्ज (PMAY अनुदान तपासा)",
+        "kn": "ಗೃಹ ಸಾಲ (PMAY ಸಬ್ಸಿಡಿ ಪರಿಶೀಲಿಸಿ)",
+        "te": "గృహ రుణం (PMAY సబ్సిడీ చూడండి)"
+      },
+      "summary": {
+        "en": "To buy, build or repair a house. Families with lower income may also qualify for interest help under Pradhan Mantri Awas Yojana.",
+        "hi": "घर खरीदने, बनाने या मरम्मत के लिए। कम आय वाले परिवारों को प्रधानमंत्री आवास योजना के तहत ब्याज में मदद भी मिल सकती है।",
+        "mr": "घर खरेदी, बांधकाम किंवा दुरुस्तीसाठी. कमी उत्पन्न असलेल्या कुटुंबांना प्रधानमंत्री आवास योजनेतून व्याजात मदतही मिळू शकते.",
+        "kn": "ಮನೆ ಖರೀದಿ, ನಿರ್ಮಾಣ ಅಥವಾ ದುರಸ್ತಿಗಾಗಿ. ಕಡಿಮೆ ಆದಾಯದ ಕುಟುಂಬಗಳಿಗೆ ಪ್ರಧಾನಮಂತ್ರಿ ಆವಾಸ್ ಯೋಜನೆಯಡಿ ಬಡ್ಡಿ ನೆರವೂ ಸಿಗಬಹುದು.",
+        "te": "ఇల్లు కొనడానికి, కట్టడానికి లేదా మరమ్మతు కోసం. తక్కువ ఆదాయ కుటుంబాలకు ప్రధానమంత్రి ఆవాస్ యోజన కింద వడ్డీ సాయం కూడా లభించవచ్చు."
+      },
+      "rules": {"collateral_any": [], "occupations": ["salaried", "business", "farmer", "pensioner"], "purposes": ["home"], "min_age": 21, "max_age": 70},
+      "estimate": null,
+      "documents": ["id_proof", "address_proof", "photo", "income_proof", "property_papers"],
+      "source": {"name": "Pradhan Mantri Awas Yojana", "url": "https://pmay-urban.gov.in"}
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+python-multipart>=0.0.9,<1
+groq>=0.11,<1
+gTTS>=2.5,<3
+python-dotenv>=1.0,<2
+sqlalchemy>=2.0,<3
+pydantic>=2.9,<3
+PyJWT>=2.9,<3
+
+# Google Sign-In for staff — verifies Google ID tokens server-side
+google-auth>=2.34,<3
+
+# Semantic RAG — embeddings + vector similarity search
+sentence-transformers>=3.0,<4
+numpy>=1.26,<3

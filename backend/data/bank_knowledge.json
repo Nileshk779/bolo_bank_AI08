@@ -1,0 +1,132 @@
+[
+  {
+    "id": "KB001",
+    "category": "Account Opening",
+    "title": "Savings Account Opening - Demo SOP",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "For this prototype, a customer opening a savings account may be asked for identity proof, address proof, PAN or Form 60 where applicable, and a recent photograph. Exact requirements must be confirmed by an authorized bank employee before account creation.",
+    "keywords": [
+      "savings account",
+      "open account",
+      "documents",
+      "KYC"
+    ]
+  },
+  {
+    "id": "KB002",
+    "category": "KYC",
+    "title": "KYC Update - Demo SOP",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "If KYC information is outdated, the customer should contact an authorized branch channel and provide the required identity or address documents. The AI assistant may explain the process but must not approve KYC verification.",
+    "keywords": [
+      "kyc",
+      "update",
+      "identity proof",
+      "address proof"
+    ]
+  },
+  {
+    "id": "KB003",
+    "category": "Debit Card",
+    "title": "Lost Debit Card - Demo SOP",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "If a debit card is lost or stolen, the customer should block the card immediately through an approved banking channel and contact branch staff for replacement guidance. The AI must never ask for or reveal PIN or CVV.",
+    "keywords": [
+      "lost card",
+      "debit card",
+      "block",
+      "replacement"
+    ]
+  },
+  {
+    "id": "KB004",
+    "category": "Balance Enquiry",
+    "title": "Balance Enquiry Privacy Rule",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "A balance may be displayed to the authenticated user in the prototype. In Elderly Privacy Voice Mode, the exact balance must not be spoken aloud; TTS should say that the balance is displayed securely on screen.",
+    "keywords": [
+      "balance",
+      "privacy",
+      "tts",
+      "speak"
+    ]
+  },
+  {
+    "id": "KB005",
+    "category": "UPI",
+    "title": "Pending UPI Transaction - Demo SOP",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "For a pending UPI transaction, the customer should first check the transaction status and reference number in the banking app. If unresolved, staff should guide the customer through the bank's official dispute process.",
+    "keywords": [
+      "upi",
+      "pending",
+      "transaction",
+      "dispute"
+    ]
+  },
+  {
+    "id": "KB006",
+    "category": "Pension",
+    "title": "Pension Credit Assistance - Demo SOP",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "If an expected pension credit is not visible, the customer should verify the credit date and account linkage with an employee. The assistant can summarize the issue for staff escalation.",
+    "keywords": [
+      "pension",
+      "credit",
+      "senior citizen"
+    ]
+  },
+  {
+    "id": "KB007",
+    "category": "Mobile Banking",
+    "title": "Mobile Banking Access - Demo SOP",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "For mobile banking access problems, the customer should use the bank's official recovery flow or seek staff help. The assistant must never request OTP, MPIN, PIN, password, or CVV.",
+    "keywords": [
+      "mobile banking",
+      "login",
+      "reset",
+      "otp"
+    ]
+  },
+  {
+    "id": "KB008",
+    "category": "Loan",
+    "title": "Loan Enquiry - Demo SOP",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "The assistant may explain general loan categories and collect non-sensitive enquiry details, but eligibility, rate, sanction, and approval decisions must be made by authorized bank systems and employees.",
+    "keywords": [
+      "loan",
+      "eligibility",
+      "interest",
+      "approval"
+    ]
+  },
+  {
+    "id": "KB009",
+    "category": "Human-AI Collaboration",
+    "title": "Employee Escalation Rule",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "If retrieved knowledge is weak, conflicting, missing, or the request involves a final financial decision, BoloBank should escalate to a human employee instead of inventing an answer.",
+    "keywords": [
+      "fallback",
+      "employee",
+      "escalation",
+      "confidence"
+    ]
+  },
+  {
+    "id": "KB010",
+    "category": "Privacy",
+    "title": "Sensitive Information Handling",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "PIN, CVV, OTP, passwords and full card numbers must never be revealed or requested. Sensitive account values should be minimized, masked where possible, and separated from TTS output.",
+    "keywords": [
+      "privacy",
+      "pin",
+      "cvv",
+      "otp",
+      "card"
+    ]
+  }
+]
