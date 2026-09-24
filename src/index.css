@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 18px; /* larger baseline for elderly readability */
+  }
+  body {
+    @apply font-body text-charcoal antialiased;
+    background-color: #F7FAFC; /* flat, warm off-white — no gradients/mesh */
+    min-height: 100vh;
+  }
+  h1, h2, h3 {
+    @apply font-display;
+  }
+  /* Always show a strong keyboard focus ring — never remove it */
+  :focus-visible {
+    outline: 3px solid #3F7FBD;
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
