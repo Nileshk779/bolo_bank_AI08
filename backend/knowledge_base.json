@@ -1,0 +1,32 @@
+[
+  {
+    "id": "kb001",
+    "topic": "Open a savings account",
+    "content": "To open a savings account, a customer needs: Aadhaar card, PAN card, one passport-size photo, and an initial deposit of Rs. 500. The account can be opened at any branch counter and is usually ready within one working day. Minors can open an account jointly with a parent or guardian."
+  },
+  {
+    "id": "kb002",
+    "topic": "Minimum balance requirements",
+    "content": "Regular savings accounts require a minimum monthly average balance of Rs. 1,000 in urban branches and Rs. 500 in rural branches. Basic Savings Bank Deposit Accounts (BSBDA) have no minimum balance requirement and are designed for financial inclusion."
+  },
+  {
+    "id": "kb003",
+    "topic": "Pension and elderly services",
+    "content": "Senior citizens (60+) get a dedicated priority queue at all branches, doorstep banking for pension withdrawal, and a 0.5% higher interest rate on fixed deposits. Pension account holders should carry their PPO (Pension Payment Order) number for faster service."
+  },
+  {
+    "id": "kb004",
+    "topic": "Loan enquiry process",
+    "content": "For a loan enquiry, the customer should specify the loan type (personal, home, agricultural, or business), then provide income proof and 6 months of bank statements. Agricultural loans in rural branches may qualify for government interest subsidy schemes; the branch can check eligibility on the spot."
+  },
+  {
+    "id": "kb005",
+    "topic": "Lost passbook or ATM card",
+    "content": "To report a lost ATM card, the customer should call the 24/7 helpline immediately to block the card, then visit any branch with ID proof to request a replacement, which typically arrives within 7 working days. A lost passbook can be reissued at the home branch with ID proof; a small reissue fee may apply."
+  },
+  {
+    "id": "kb006",
+    "topic": "Working hours and holidays",
+    "content": "Branches are generally open Monday to Friday, 10:00 AM to 4:00 PM, and Saturday 10:00 AM to 2:00 PM (except second and fourth Saturdays). Branches remain closed on Sundays and national holidays. ATM and mobile banking services remain available 24/7."
+  }
+]
