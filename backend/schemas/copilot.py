@@ -7,6 +7,8 @@ class CopilotRequest(BaseModel):
     query: str
     language: str = "hi"
     complexity: str = "simple"
+    # The previous Copilot query, so "customer didn't understand" can redo it.
+    previous_query: str | None = None
 
 
 class CopilotResponse(BaseModel):
@@ -24,3 +26,10 @@ class CopilotResponse(BaseModel):
     grounded: bool = True
     risk_level: str = "low"
     requires_human_review: bool = False
+    # Automatic explanation level (services/clarification_service.py):
+    # the level actually used, and — when the customer said "I don't
+    # understand" / "tell me more" — what changed and which earlier question
+    # was answered again.
+    complexity_used: str | None = None
+    level_change: str | None = None  # "simpler" | "reexplain" | "more_detail"
+    reexplained_question: str | None = None

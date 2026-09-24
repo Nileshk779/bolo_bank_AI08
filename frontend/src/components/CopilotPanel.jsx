@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Sparkles, Loader2, Volume2, ListChecks, Lightbulb, MessageSquareText, AlertCircle, ShieldAlert } from 'lucide-react'
 import { apiFetch } from '../api.js'
 import { LANGUAGES } from './LanguageSelect.jsx'
-import ComplexitySelect from './ComplexitySelect.jsx'
+import ComplexitySelect, { LevelChangeNote } from './ComplexitySelect.jsx'
 import VisualDataCard from './VisualDataCard.jsx'
 
 export default function CopilotPanel() {
@@ -13,10 +13,14 @@ export default function CopilotPanel() {
   const [editedReply, setEditedReply] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  // Last real question, so "customer didn't understand" can redo it at a
+  // different level (backend/services/clarification_service.py).
+  const lastQueryRef = useRef(null)
 
-  const askCopilot = async (e) => {
-    e.preventDefault()
-    if (!query.trim()) return
+  const askCopilot = async (e, overrideQuery) => {
+    e?.preventDefault()
+    const q = overrideQuery ?? query
+    if (!q.trim()) return
     setBusy(true)
     setError('')
     setResult(null)
@@ -24,10 +28,12 @@ export default function CopilotPanel() {
       const res = await apiFetch('/copilot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query, language, complexity }),
+        body: JSON.stringify({ query: q, language, complexity, previous_query: lastQueryRef.current }),
       })
       if (!res.ok) throw new Error('Copilot request failed')
       const data = await res.json()
+      if (!data.reexplained_question) lastQueryRef.current = q
+      if (data.complexity_used) setComplexity(data.complexity_used)
       setResult(data)
       setEditedReply(data.suggested_reply_local)
     } catch (err) {
@@ -99,6 +105,14 @@ export default function CopilotPanel() {
             </div>
 
             <ComplexitySelect value={complexity} onChange={setComplexity} />
+            {result && (
+              <div className="grid grid-cols-2 gap-2">
+                <button type="button" disabled={busy} onClick={() => askCopilot(null, "Customer didn't understand")}
+                  className="py-2 rounded-xl border-2 border-primary-400 text-primary-700 text-sm font-semibold disabled:opacity-50">Customer didn't understand</button>
+                <button type="button" disabled={busy} onClick={() => askCopilot(null, 'Customer wants more detail')}
+                  className="py-2 rounded-xl border-2 border-secondary-500 text-secondary-600 text-sm font-semibold disabled:opacity-50">Customer wants more detail</button>
+              </div>
+            )}
 
             <button
               type="submit"
@@ -130,6 +144,7 @@ export default function CopilotPanel() {
 
         {result && (
           <>
+            <LevelChangeNote change={result.level_change} level={result.complexity_used} question={result.reexplained_question} />
             <InfoCard
               icon={ListChecks}
               title="What the customer wants"

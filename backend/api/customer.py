@@ -1,13 +1,17 @@
+from datetime import date, timedelta
+
 from pydantic import BaseModel
 from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from auth.security import create_customer_token, get_current_customer
+from core.config import settings
 from database.session import get_db
 from schemas.chat import ChatRequest, ChatResponse
 from schemas.eligibility import EligibilityRequest, EligibilityResponse
 from services.ai_orchestrator import ai_orchestrator
+from services.clarification_service import last_customer_question, plan
 from services.eligibility_service import check_eligibility, describe_profile_english, detect_loan_interest
 from services.response_privacy_service import protect_for_speech
 from services.scheme_update_service import get_approved_schemes
@@ -16,13 +20,38 @@ from services.speech_service import transcribe_upload
 from services.tts_service import synthesize_speech
 
 router = APIRouter(prefix="/api/customer", tags=["customer-portal"])
+SUPPORTED_LANGUAGES = {"en", "hi", "mr", "kn", "te"}
 
 class CustomerSessionRequest(BaseModel):
     language: str = "mr"
 
+@router.get("/new-schemes")
+def new_schemes(language: str = "mr", db: Session = Depends(get_db)):
+    """Schemes staff approved in the last NEW_SCHEME_DAYS days, for the
+    customer portal's "New schemes" notification. Public on purpose: it is
+    general product information, shown before a session starts, and holds
+    no customer data. Only staff-approved, unexpired schemes appear."""
+    if language not in SUPPORTED_LANGUAGES:
+        raise HTTPException(400, "Unsupported language")
+    since = (date.today() - timedelta(days=settings.NEW_SCHEME_DAYS)).isoformat()
+    return [
+        {
+            "scheme_id": s["id"],
+            "kind": s["kind"],
+            "name": s["name"].get(language) or s["name"]["en"],
+            "summary": s["summary"].get(language) or s["summary"]["en"],
+            "collateral_free": not s["rules"].get("collateral_any"),
+            "added_on": s.get("added_on"),
+            "valid_until": s.get("valid_until"),
+        }
+        for s in get_approved_schemes(db)
+        if (s.get("added_on") or "") >= since
+    ]
+
+
 @router.post("/session/start")
 async def start_customer_session(req: CustomerSessionRequest):
-    if req.language not in {"en", "hi", "mr", "kn", "te"}:
+    if req.language not in SUPPORTED_LANGUAGES:
         raise HTTPException(400, "Unsupported language")
     session_id = new_session_id()
     return {"session_id": session_id, "language": req.language, "customer_token": create_customer_token(session_id, req.language)}
@@ -32,7 +61,9 @@ async def customer_chat(req: ChatRequest, customer: dict = Depends(get_current_c
     if req.session_id != customer.get("sub"):
         raise HTTPException(403, "Session mismatch")
     language = customer.get("language", req.language)
-    result = ai_orchestrator.handle_customer_query(text=req.text, language=language, complexity=req.complexity)
+    p = plan(req.text, req.complexity, last_customer_question(db, req.session_id))
+    result = ai_orchestrator.handle_customer_query(text=p.query, language=language, complexity=p.complexity, followup=p.instruction)
+    result.update(complexity_used=p.complexity, level_change=p.level_change, reexplained_question=p.reexplained_question)
     log_turn(db, req.session_id, "customer", language, req.text, "")
     log_turn(db, req.session_id, "assistant", language, result["reply_local"], result["reply_english"])
     if detect_loan_interest(req.text):

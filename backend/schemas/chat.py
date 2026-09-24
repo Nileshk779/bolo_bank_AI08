@@ -47,3 +47,10 @@ class ChatResponse(BaseModel):
     # Optional UI hint, e.g. "open_eligibility" when the customer mentions
     # loans/schemes — the portal offers the eligibility checker.
     ui_action: str | None = None
+    # Automatic explanation level (services/clarification_service.py):
+    # the level actually used, and — when the customer said "I don't
+    # understand" / "tell me more" — what changed and which earlier question
+    # was answered again.
+    complexity_used: str | None = None
+    level_change: str | None = None  # "simpler" | "reexplain" | "more_detail"
+    reexplained_question: str | None = None

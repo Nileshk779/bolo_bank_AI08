@@ -1,4 +1,24 @@
-import { Gauge } from 'lucide-react'
+import { Gauge, Wand2 } from 'lucide-react'
+
+const LEVEL_NAMES = { simple: 'Simple', normal: 'Normal', detailed: 'Detailed' }
+const CHANGE_TEXT = {
+  simpler: (level) => `Customer didn't understand — switched to ${LEVEL_NAMES[level]}`,
+  reexplain: () => 'Customer still didn\'t understand — re-explaining in different words with an example',
+  more_detail: (level) => `Customer asked for more — switched to ${LEVEL_NAMES[level]}`,
+}
+
+/** Shown when the backend changed the explanation level automatically
+ * (backend/services/clarification_service.py). Staff can still override
+ * it with the selector. */
+export function LevelChangeNote({ change, level, question, className = '' }) {
+  if (!change) return null
+  return (
+    <p className={`flex items-start gap-1.5 text-xs font-semibold text-primary-700 bg-primary-50 border border-primary-100 rounded-lg px-2.5 py-1.5 ${className}`}>
+      <Wand2 className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+      <span>{CHANGE_TEXT[change]?.(level)}{question ? ` · answering again: “${question}”` : ''}</span>
+    </p>
+  )
+}
 
 const LEVELS = [
   { id: 'simple', label: 'Simple', hint: "Explain Like I'm 60" },

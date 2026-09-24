@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
-import { Loader2, LogOut, MessageCircleWarning, User, Bot, Sparkles, Volume2, Check, X, ShieldAlert } from 'lucide-react'
+import { Loader2, LogOut, MessageCircleWarning, User, Bot, Sparkles, Volume2, Check, X, ShieldAlert, HelpCircle, PlusCircle } from 'lucide-react'
 import MicButton from './MicButton.jsx'
-import ComplexitySelect from './ComplexitySelect.jsx'
+import ComplexitySelect, { LevelChangeNote } from './ComplexitySelect.jsx'
 import VisualDataCard from './VisualDataCard.jsx'
 import { LANGUAGES } from './LanguageSelect.jsx'
 import { apiFetch } from '../api.js'
@@ -11,15 +11,17 @@ export default function CustomerPanel({ sessionId, language, onEndSession }) {
   const [busy, setBusy] = useState(false)
   const [statusText, setStatusText] = useState('')
   const [complexity, setComplexity] = useState('simple')
-  // Elderly Voice Mode: voice-first, large controls, minimal text, forced
+  // Elderly Voice Mode: voice-first, large controls, minimal text, starts in
   // simple language, and a slower/clearer speaking pace — designed so a
   // customer can complete a common interaction without reading much at all.
+  // The level still adapts automatically if the customer says "I don't
+  // understand" or "tell me more" (backend/services/clarification_service.py).
   const [elderlyMode, setElderlyMode] = useState(false)
+  const [lastChange, setLastChange] = useState(null)
   const audioRef = useRef(null)
   const lastSpokenRef = useRef('')
 
   const langLabel = LANGUAGES.find((l) => l.code === language)?.label ?? language
-  const effectiveComplexity = elderlyMode ? 'simple' : complexity
 
   const playAudio = async (spokenText) => {
     lastSpokenRef.current = spokenText
@@ -53,16 +55,21 @@ export default function CustomerPanel({ sessionId, language, onEndSession }) {
           session_id: sessionId,
           text,
           language,
-          complexity: effectiveComplexity,
+          complexity,
           elderly_mode: elderlyMode,
         }),
       })
       if (!chatRes.ok) throw new Error('chat-failed')
-      const { reply_local, reply_english, spoken_response, visual_data, sensitive } = await chatRes.json()
+      const { reply_local, reply_english, spoken_response, visual_data, sensitive, complexity_used, level_change, reexplained_question } = await chatRes.json()
 
+      // The backend may have changed the level ("I don't understand" ->
+      // simpler, "tell me more" -> more detail); keep the selector in sync.
+      if (complexity_used) setComplexity(complexity_used)
+      const change = level_change ? { change: level_change, level: complexity_used, question: reexplained_question } : null
+      setLastChange(change)
       setMessages((m) => [
         ...m,
-        { role: 'assistant', text: reply_local, textEnglish: reply_english, visualData: visual_data, sensitive },
+        { role: 'assistant', text: reply_local, textEnglish: reply_english, visualData: visual_data, sensitive, levelChange: change },
       ])
       setStatusText('Speaking reply…')
 
@@ -128,7 +135,7 @@ export default function CustomerPanel({ sessionId, language, onEndSession }) {
           <p className="text-sm uppercase tracking-wide text-charcoal/50 font-semibold">Customer panel</p>
           <button
             type="button"
-            onClick={() => setElderlyMode((v) => !v)}
+            onClick={() => setElderlyMode((v) => { if (!v) setComplexity('simple'); return !v })}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold text-xs border transition-colors
               ${elderlyMode
                 ? 'bg-secondary-500 text-white border-secondary-500'
@@ -188,10 +195,14 @@ export default function CustomerPanel({ sessionId, language, onEndSession }) {
                 NO
               </button>
             </div>
+            {hasAssistantReply && <ClarifyButtons onPick={handleQuickReply} busy={busy} big />}
+            <LevelChangeNote {...(lastChange || {})} className="w-full" />
           </div>
         ) : (
-          <div className="mt-8 w-full flex justify-center">
+          <div className="mt-8 w-full flex flex-col items-center gap-3">
             <ComplexitySelect value={complexity} onChange={setComplexity} />
+            {hasAssistantReply && <ClarifyButtons onPick={handleQuickReply} busy={busy} />}
+            <LevelChangeNote {...(lastChange || {})} />
           </div>
         )}
 
@@ -238,6 +249,24 @@ export default function CustomerPanel({ sessionId, language, onEndSession }) {
   )
 }
 
+/** One tap for the two most common follow-ups; the backend recognises
+ * these phrases and changes the explanation level. */
+function ClarifyButtons({ onPick, busy, big = false }) {
+  const cls = big ? 'py-4 text-lg' : 'py-2 text-sm'
+  return (
+    <div className="grid grid-cols-2 gap-3 w-full">
+      <button type="button" disabled={busy} onClick={() => onPick("I don't understand")}
+        className={`flex items-center justify-center gap-2 rounded-2xl bg-white border-2 border-primary-400 text-primary-700 font-bold disabled:opacity-50 ${cls}`}>
+        <HelpCircle className={big ? 'h-6 w-6' : 'h-4 w-4'} />Didn't understand
+      </button>
+      <button type="button" disabled={busy} onClick={() => onPick('Tell me more')}
+        className={`flex items-center justify-center gap-2 rounded-2xl bg-white border-2 border-secondary-500 text-secondary-600 font-bold disabled:opacity-50 ${cls}`}>
+        <PlusCircle className={big ? 'h-6 w-6' : 'h-4 w-4'} />Tell me more
+      </button>
+    </div>
+  )
+}
+
 function Bubble({ message }) {
   if (message.role === 'system') {
     return (
@@ -267,6 +296,7 @@ function Bubble({ message }) {
             </span>
           )}
         </p>
+        {message.levelChange && <LevelChangeNote {...message.levelChange} className="mb-2" />}
         <p className="text-base text-charcoal">{message.text}</p>
         {message.textEnglish && (
           <p className="text-sm text-charcoal/60 mt-1 italic">{message.textEnglish}</p>

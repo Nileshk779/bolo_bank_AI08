@@ -67,6 +67,8 @@ class Settings:
     SCHEME_UPDATE_INTERVAL_HOURS: float = float(os.getenv("SCHEME_UPDATE_INTERVAL_HOURS", "24"))
     # "llm" = extract each announcement with the Groq LLM (falls back to the
     # feed's demo preset on error); "preset" = never call the LLM.
+    # How long an approved scheme is announced as "new" to customers.
+    NEW_SCHEME_DAYS: int = int(os.getenv("NEW_SCHEME_DAYS") or "30")
     SCHEME_EXTRACTION_MODE: str = os.getenv("SCHEME_EXTRACTION_MODE", "llm").lower()
 
     # --- CORS ---

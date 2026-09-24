@@ -136,7 +136,9 @@ class AIOrchestrator:
     # ------------------------------------------------------------------ #
     # Customer Mode
     # ------------------------------------------------------------------ #
-    def handle_customer_query(self, text: str, language: str, complexity: str) -> dict:
+    def handle_customer_query(self, text: str, language: str, complexity: str, followup: str | None = None) -> dict:
+        """`followup` is an extra instruction from clarification_service when
+        the customer asked for a simpler or more detailed explanation."""
         intent = account_service.detect_account_intent(text)
         if intent:
             shared = self._account_intent_response(text, intent, language)
@@ -155,9 +157,9 @@ class AIOrchestrator:
 
         retrieval = _run_retrieval(text)
         risk = risk_service.assess(text)
-        return self._run_customer_pipeline(text, language, complexity, retrieval, risk)
+        return self._run_customer_pipeline(text, language, complexity, retrieval, risk, followup)
 
-    def _run_customer_pipeline(self, text: str, language: str, complexity: str, retrieval: dict, risk) -> dict:
+    def _run_customer_pipeline(self, text: str, language: str, complexity: str, retrieval: dict, risk, followup: str | None = None) -> dict:
         if not retrieval["grounded"]:
             # Anti-hallucination hard gate (see rag_service.is_confident):
             # no confident context -> never call the LLM, return the fixed
@@ -165,7 +167,7 @@ class AIOrchestrator:
             reply_local = grounding_fallback(language)
             reply_english = grounding_fallback("en")
         else:
-            raw = self._generate_customer_completion(text, retrieval["context"], language, complexity)
+            raw = self._generate_customer_completion(text, retrieval["context"], language, complexity, followup)
             reply_local, reply_english = translation_service.split_local_and_english(raw)
 
         protected = response_privacy_service.protect_for_speech(reply_local, language=language)
@@ -183,7 +185,7 @@ class AIOrchestrator:
             "requires_human_review": risk.requires_human_review,
         }
 
-    def _generate_customer_completion(self, text: str, context: str, language: str, complexity: str) -> str:
+    def _generate_customer_completion(self, text: str, context: str, language: str, complexity: str, followup: str | None = None) -> str:
         lang_name = LANGUAGE_NAMES.get(language, "Hindi")
         complexity_instruction = COMPLEXITY_INSTRUCTIONS.get(complexity, COMPLEXITY_INSTRUCTIONS["simple"])
         system_prompt = (
@@ -197,16 +199,21 @@ class AIOrchestrator:
             "real account data (balances, transactions, card details) — if asked, say so; you "
             "are never the source of a real personal balance or account number.\n\n"
             f"Explanation style: {complexity_instruction}\n\n"
-            f"Bank policy context (top-matching passages only, not the full knowledge base):\n{context}\n\n"
-            f"Reply in {lang_name}. After your reply, on a new line starting with 'EN:', give a "
-            "short English translation for the staff member to read."
+            + (f"{followup}\n\n" if followup else "")
+            + f"Bank policy context (top-matching passages only, not the full knowledge base):\n{context}\n\n"
+            f"Reply in {lang_name}. Write plain text only — no markdown symbols such as ** or # — "
+            "because the reply is shown as-is and read aloud; use numbered lines for steps. Keep "
+            "it under about 120 words even when detailed. After your reply, on a new line "
+            "starting with 'EN:', give a short English translation for the staff member to read."
         )
-        return chat_completion(system_prompt, text, max_tokens=400)
+        # Room for Normal/Detailed replies in Indian scripts (several tokens
+        # per word) plus the EN: line, so the translation isn't cut off.
+        return chat_completion(system_prompt, text, max_tokens=900)
 
     # ------------------------------------------------------------------ #
     # Employee Mode (Copilot)
     # ------------------------------------------------------------------ #
-    def handle_employee_query(self, query: str, language: str, complexity: str) -> dict:
+    def handle_employee_query(self, query: str, language: str, complexity: str, followup: str | None = None) -> dict:
         intent = account_service.detect_account_intent(query)
         if intent:
             shared = self._account_intent_response(query, intent, language)
@@ -228,9 +235,9 @@ class AIOrchestrator:
 
         retrieval = _run_retrieval(query)
         risk = risk_service.assess(query)
-        return self._run_employee_pipeline(query, language, complexity, retrieval, risk)
+        return self._run_employee_pipeline(query, language, complexity, retrieval, risk, followup)
 
-    def _run_employee_pipeline(self, query: str, language: str, complexity: str, retrieval: dict, risk) -> dict:
+    def _run_employee_pipeline(self, query: str, language: str, complexity: str, retrieval: dict, risk, followup: str | None = None) -> dict:
         if not retrieval["grounded"]:
             fallback = grounding_fallback(language)
             fallback_en = grounding_fallback("en")
@@ -250,7 +257,7 @@ class AIOrchestrator:
                 "requires_human_review": True,
             }
 
-        parsed = self._generate_employee_completion(query, retrieval["context"], language, complexity)
+        parsed = self._generate_employee_completion(query, retrieval["context"], language, complexity, followup)
 
         # Risk framing: a flagged request gets the human-review note
         # prepended to the suggested action, regardless of what the LLM
@@ -278,7 +285,7 @@ class AIOrchestrator:
             "requires_human_review": risk.requires_human_review,
         }
 
-    def _generate_employee_completion(self, query: str, context: str, language: str, complexity: str) -> dict:
+    def _generate_employee_completion(self, query: str, context: str, language: str, complexity: str, followup: str | None = None) -> dict:
         lang_name = LANGUAGE_NAMES.get(language, "Hindi")
         complexity_instruction = COMPLEXITY_INSTRUCTIONS.get(complexity, COMPLEXITY_INSTRUCTIONS["simple"])
 
@@ -295,6 +302,8 @@ class AIOrchestrator:
             "guessing.\n\n"
             f"Bank policy context (top-matching passages only, not the full knowledge base):\n{context}\n\n"
             f"Draft reply style: {complexity_instruction}\n\n"
+            + (f"For the draft reply: {followup}\n\n" if followup else "")
+            +
             "Respond with ONLY a JSON object (no markdown fences, no extra text) with "
             "exactly these keys:\n"
             '  "understood_summary": one short sentence in English restating what the '

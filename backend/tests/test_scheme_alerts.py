@@ -125,3 +125,30 @@ def test_alert_routes_require_staff(client):
     token = client.post("/api/customer/session/start", json={"language": "mr"}).json()["customer_token"]
     assert client.get("/api/schemes/alerts").status_code == 401
     assert client.get("/api/schemes/alerts", headers={"Authorization": f"Bearer {token}"}).status_code == 403
+
+
+# ------------------------------------------- customer "new schemes" note --- #
+def test_customer_new_schemes_lists_only_recent_approved_in_their_language(client, db):
+    svc.run_update(db, today=date(2026, 9, 24), feed=FakeFeed("n1"))
+    d = drafts_for(db, "n1")
+    svc.approve(db, d["demo-2026-09-23-solar-pump"].id, "staff")  # approved -> announced
+    # pending KCC dairy draft must NOT be announced
+
+    res = client.get("/api/customer/new-schemes?language=kn")
+    assert res.status_code == 200  # public: shown before a session starts
+    items = {i["scheme_id"]: i for i in res.json()}
+    assert "solar_pump_loan_n1" in items
+    assert "kcc_animal_husbandry_n1" not in items
+    assert items["solar_pump_loan_n1"]["name"] == "ಸೌರ ಪಂಪ್ ಸಾಲ (PM-KUSUM ಸಂಬಂಧಿತ)"
+    assert set(items["solar_pump_loan_n1"]) == {"scheme_id", "kind", "name", "summary", "collateral_free", "added_on", "valid_until"}
+
+
+def test_customer_new_schemes_rejects_unknown_language(client):
+    assert client.get("/api/customer/new-schemes?language=xx").status_code == 400
+
+
+def test_old_approvals_are_no_longer_announced(client, db, monkeypatch):
+    from core.config import settings
+
+    monkeypatch.setattr(settings, "NEW_SCHEME_DAYS", -1)  # everything counts as old
+    assert client.get("/api/customer/new-schemes?language=en").json() == []

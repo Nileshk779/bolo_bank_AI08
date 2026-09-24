@@ -1,4 +1,6 @@
 import { ELIGIBILITY_TEXT } from './i18nEligibility.js'
+import { CLARIFY_TEXT } from './i18nClarify.js'
+import { NOTICE_TEXT } from './i18nNotices.js'
 
 export const LANGUAGES = [
   { code: 'mr', label: 'मराठी', english: 'Marathi' },
@@ -95,6 +97,8 @@ const M = {
 }
 
 for (const [lang, strings] of Object.entries(ELIGIBILITY_TEXT)) Object.assign(M[lang], strings)
+for (const [lang, strings] of Object.entries(CLARIFY_TEXT)) Object.assign(M[lang], strings)
+for (const [lang, strings] of Object.entries(NOTICE_TEXT)) Object.assign(M[lang], strings)
 
 export function t(language, key) {
   return M[language]?.[key] ?? M.en[key] ?? key
