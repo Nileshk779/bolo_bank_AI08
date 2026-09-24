@@ -4,6 +4,7 @@ copilot_service.py, plus the language/complexity vocabulary that used to be
 duplicated between /chat and /copilot in the original main.py.
 """
 import logging
+from contextvars import ContextVar
 
 from core.config import settings
 from core.exceptions import UpstreamServiceError
@@ -42,6 +43,31 @@ COMPLEXITY_INSTRUCTIONS = {
 }
 
 
+# Token usage for the current request, for the branch dashboard's cost
+# figures (services/analytics_service.py). A request handler calls
+# start_usage_tracking(); every chat_completion() in that request adds to it.
+_usage: ContextVar[dict | None] = ContextVar("llm_usage", default=None)
+
+
+def start_usage_tracking() -> None:
+    _usage.set({"llm_calls": 0, "prompt_tokens": 0, "completion_tokens": 0})
+
+
+def tracked_usage() -> dict:
+    return dict(_usage.get() or {"llm_calls": 0, "prompt_tokens": 0, "completion_tokens": 0})
+
+
+def _record_usage(completion) -> None:
+    acc = _usage.get()
+    usage = getattr(completion, "usage", None)
+    if acc is None:
+        return
+    acc["llm_calls"] += 1
+    if usage:
+        acc["prompt_tokens"] += getattr(usage, "prompt_tokens", 0) or 0
+        acc["completion_tokens"] += getattr(usage, "completion_tokens", 0) or 0
+
+
 def _get_groq_client():
     if not settings.GROQ_API_KEY:
         raise UpstreamServiceError("Groq", "GROQ_API_KEY is not set on the server")
@@ -77,6 +103,7 @@ def chat_completion(system_prompt: str, user_text: str, max_tokens: int = 500, j
         logger.error("Groq chat completion failed: %s", exc)
         raise UpstreamServiceError("Groq LLM", str(exc)) from exc
 
+    _record_usage(completion)
     return completion.choices[0].message.content or ""
 
 

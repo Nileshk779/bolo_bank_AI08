@@ -10,7 +10,9 @@ from core.config import settings
 from database.session import get_db
 from schemas.chat import ChatRequest, ChatResponse
 from schemas.eligibility import EligibilityRequest, EligibilityResponse
+from services import analytics_service
 from services.ai_orchestrator import ai_orchestrator
+from services.llm_service import start_usage_tracking
 from services.clarification_service import last_customer_question, plan
 from services.eligibility_service import check_eligibility, describe_profile_english, detect_loan_interest
 from services.response_privacy_service import protect_for_speech
@@ -62,7 +64,10 @@ async def customer_chat(req: ChatRequest, customer: dict = Depends(get_current_c
         raise HTTPException(403, "Session mismatch")
     language = customer.get("language", req.language)
     p = plan(req.text, req.complexity, last_customer_question(db, req.session_id))
+    start_usage_tracking()
     result = ai_orchestrator.handle_customer_query(text=p.query, language=language, complexity=p.complexity, followup=p.instruction)
+    analytics_service.record_answer(db, channel="customer_portal", session_id=req.session_id, language=language, question=p.query,
+                                    result=result, level_change=p.level_change, elderly_mode=req.elderly_mode)
     result.update(complexity_used=p.complexity, level_change=p.level_change, reexplained_question=p.reexplained_question)
     log_turn(db, req.session_id, "customer", language, req.text, "")
     log_turn(db, req.session_id, "assistant", language, result["reply_local"], result["reply_english"])
@@ -77,6 +82,7 @@ async def customer_eligibility(req: EligibilityRequest, customer: dict = Depends
     language = customer.get("language", "en")
     assets = req.assets.model_dump()
     result = check_eligibility(assets, req.occupation, req.purpose, req.age, language, extra_schemes=get_approved_schemes(db))
+    analytics_service.record_eligibility(db, session_id=req.session_id, language=language, assets=assets, result=result)
     # Logged in English so the staff Copilot/summary can see what the
     # customer asked for and which schemes were suggested for review.
     profile = describe_profile_english(assets, req.occupation, req.purpose, req.age)

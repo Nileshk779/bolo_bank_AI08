@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Column, DateTime, Integer, String, Text, UniqueConstraint
+from sqlalchemy import Column, DateTime, Float, Integer, String, Text, UniqueConstraint
 
 from database.session import Base
 
@@ -107,3 +107,36 @@ class SchemeAlert(Base):
     handled_by = Column(String, nullable=True)
     handled_at = Column(DateTime, nullable=True)
     note = Column(Text, nullable=True)
+
+
+class InteractionEvent(Base):
+    """One answered question or eligibility check, for the branch manager
+    dashboard (services/analytics_service.py). Holds counts-level facts —
+    topic, language, whether the AI answered or handed over to staff, token
+    usage — not conversation content, except the (redacted) text of
+    questions the AI could not answer, so the knowledge base can be improved.
+    Rows with is_demo=True are generated sample data and can be removed."""
+
+    __tablename__ = "interaction_events"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    kind = Column(String, index=True)  # "answer" | "eligibility"
+    channel = Column(String)  # "customer_portal" | "staff_session" | "copilot"
+    session_id = Column(String, index=True)
+    language = Column(String)
+    elderly_mode = Column(Integer, default=0)
+    topic = Column(String, nullable=True)  # knowledge-base topic of the best source
+    doc_id = Column(String, nullable=True)
+    confidence = Column(Float, nullable=True)
+    answered_by_ai = Column(Integer, default=0)  # grounded answer, no human review needed
+    handed_to_staff = Column(Integer, default=0)
+    account_query = Column(Integer, default=0)  # balance/account-data question
+    level_change = Column(String, nullable=True)  # "simpler" | "reexplain" | "more_detail"
+    unanswered_text = Column(Text, nullable=True)  # redacted; only when not answered by AI
+    assets_json = Column(Text, nullable=True)  # eligibility: which asset types the customer has
+    matched_json = Column(Text, nullable=True)  # eligibility: matched scheme ids
+    estimated_amount_inr = Column(Integer, nullable=True)  # eligibility: best loan estimate
+    llm_calls = Column(Integer, default=0)
+    prompt_tokens = Column(Integer, default=0)
+    completion_tokens = Column(Integer, default=0)
+    is_demo = Column(Integer, default=0, index=True)

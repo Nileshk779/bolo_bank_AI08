@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowLeft, Building2, Circle, FileText, Headphones, Landmark, LayoutDashboard, LogOut, Mic, ShieldCheck, Sparkles, Users } from 'lucide-react'
+import { ArrowLeft, BarChart3, Building2, Circle, FileText, Headphones, Landmark, LayoutDashboard, LogOut, Mic, ShieldCheck, Sparkles, Users } from 'lucide-react'
 import LoginPage from './components/LoginPage.jsx'
 import LanguageSelect from './components/LanguageSelect.jsx'
 import CustomerPanel from './components/CustomerPanel.jsx'
@@ -8,6 +8,7 @@ import CopilotPanel from './components/CopilotPanel.jsx'
 import SessionSummary from './components/SessionSummary.jsx'
 import QueuePanel from './components/QueuePanel.jsx'
 import SchemeUpdatesPanel from './components/SchemeUpdatesPanel.jsx'
+import BranchDashboard from './components/BranchDashboard.jsx'
 import { apiFetch, getToken, getStaffName, clearSession } from './api.js'
 
 const TABS = [
@@ -17,6 +18,7 @@ const TABS = [
   { id: 'queue', label: 'Queue', icon: Users },
   { id: 'summary', label: 'Summary', icon: FileText },
   { id: 'schemes', label: 'Schemes', icon: Landmark },
+  { id: 'insights', label: 'Branch Insights', icon: BarChart3 },
 ]
 
 export default function App() {
@@ -43,7 +45,7 @@ function StaffPortal({ onExit }) {
   const startSession=async()=>{const form=new FormData();form.append('language',language);const res=await apiFetch('/sessions/start',{method:'POST',body:form});const data=await res.json();setSessionId(data.session_id);setTab('session')}
   const endSession=async()=>{const res=await apiFetch(`/sessions/${sessionId}/summary`);if(res.ok)setSummary(await res.json());setTab('summary')}
 
-  return <div className="min-h-screen"><StaffHeader tab={tab} setTab={setTab} sessionActive={!!sessionId} staffName={staffName} onLogout={logout} onExit={onExit}/><main className="max-w-7xl mx-auto px-5 sm:px-7 py-8 sm:py-10 animate-fadeUp">{tab==='dashboard'&&<StaffDashboard language={language} setLanguage={setLanguage} onStart={startSession} sessionId={sessionId}/>} {tab==='session'&&sessionId&&<CustomerPanel sessionId={sessionId} language={language} onEndSession={endSession}/>} {tab==='session'&&!sessionId&&<EmptyState message="Start a staff-assisted customer session from the Dashboard first." icon={Mic}/>} {tab==='copilot'&&<CopilotPanel/>} {tab==='queue'&&<QueuePanel/>} {tab==='schemes'&&<SchemeUpdatesPanel/>} {tab==='summary'&&(summary?<SessionSummary summary={summary} onStartNew={()=>{setSessionId(null);setSummary(null);setTab('dashboard')}}/>:<EmptyState message="End a staff-assisted session to see its summary here." icon={FileText}/>)}</main><footer className="max-w-7xl mx-auto px-6 pb-8 text-center text-sm text-charcoal/40">BoloBank Staff Portal · AI assists, employees decide</footer></div>
+  return <div className="min-h-screen"><StaffHeader tab={tab} setTab={setTab} sessionActive={!!sessionId} staffName={staffName} onLogout={logout} onExit={onExit}/><main className="max-w-7xl mx-auto px-5 sm:px-7 py-8 sm:py-10 animate-fadeUp">{tab==='dashboard'&&<StaffDashboard language={language} setLanguage={setLanguage} onStart={startSession} sessionId={sessionId}/>} {tab==='session'&&sessionId&&<CustomerPanel sessionId={sessionId} language={language} onEndSession={endSession}/>} {tab==='session'&&!sessionId&&<EmptyState message="Start a staff-assisted customer session from the Dashboard first." icon={Mic}/>} {tab==='copilot'&&<CopilotPanel/>} {tab==='queue'&&<QueuePanel/>} {tab==='schemes'&&<SchemeUpdatesPanel/>} {tab==='insights'&&<BranchDashboard onOpenSchemes={()=>setTab('schemes')}/>} {tab==='summary'&&(summary?<SessionSummary summary={summary} onStartNew={()=>{setSessionId(null);setSummary(null);setTab('dashboard')}}/>:<EmptyState message="End a staff-assisted session to see its summary here." icon={FileText}/>)}</main><footer className="max-w-7xl mx-auto px-6 pb-8 text-center text-sm text-charcoal/40">BoloBank Staff Portal · AI assists, employees decide</footer></div>
 }
 
 function StaffHeader({tab,setTab,sessionActive,staffName,onLogout,onExit}) { return <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-primary-100"><div className="max-w-7xl mx-auto px-5 sm:px-7 py-3.5 flex items-center justify-between gap-4"><div className="flex items-center gap-3"><button onClick={onExit} className="p-2 rounded-full hover:bg-primary-50"><ArrowLeft className="h-5 w-5" /></button><div className="h-10 w-10 rounded-xl bg-secondary-100 flex items-center justify-center"><Building2 className="h-5 w-5 text-secondary-600" /></div><div><p className="font-display font-bold text-lg text-primary-900">BoloBank Staff</p><p className="text-xs text-charcoal/50">Employee workspace</p></div></div><nav className="hidden 2xl:flex gap-1 bg-primary-50/80 border border-primary-100 rounded-full p-1">{TABS.map(t=>{const Icon=t.icon;const active=tab===t.id;return <button key={t.id} onClick={()=>setTab(t.id)} className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-semibold whitespace-nowrap ${active?'bg-white text-primary-900 shadow-soft':'text-charcoal/60 hover:bg-white'}`}><Icon className="h-4 w-4" />{t.label}</button>})}</nav><div className="hidden md:flex items-center gap-3"><span className={`inline-flex items-center gap-2 text-sm font-semibold px-3 py-1.5 rounded-full border ${sessionActive?'bg-secondary-50 text-secondary-600 border-secondary-400/50':'bg-primary-50 text-charcoal/45 border-primary-100'}`}><Circle className={`h-2 w-2 ${sessionActive?'fill-secondary-600':'fill-charcoal/30'}`}/>{sessionActive?'Session active':'No active session'}</span><span className="text-sm text-charcoal/55">{staffName}</span><button onClick={onLogout} className="p-2 rounded-full hover:bg-primary-50"><LogOut className="h-4 w-4" /></button></div></div><nav className="2xl:hidden flex gap-1 px-4 pb-3 overflow-x-auto">{TABS.map(t=>{const Icon=t.icon;return <button key={t.id} onClick={()=>setTab(t.id)} className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-semibold whitespace-nowrap ${tab===t.id?'bg-primary-500 text-white':'bg-primary-50 text-charcoal/60'}`}><Icon className="h-3.5 w-3.5" />{t.label}</button>})}</nav></header> }

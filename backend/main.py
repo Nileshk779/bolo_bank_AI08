@@ -37,7 +37,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api import auth, chat, copilot, customer, demo_data, health, queue, schemes, sessions, voice
+from api import auth, chat, copilot, customer, dashboard, demo_data, health, queue, schemes, sessions, voice
 from auth.seed import seed_authorized_employees, seed_default_staff
 from core.config import settings
 from core.exceptions import register_exception_handlers
@@ -119,5 +119,6 @@ app.include_router(queue.router)
 app.include_router(health.router)
 app.include_router(demo_data.router)
 app.include_router(schemes.router)
+app.include_router(dashboard.router)
 
 logger.info("BoloBank API started")

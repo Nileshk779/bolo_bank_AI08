@@ -30,6 +30,14 @@ class Settings:
     # longer offered), so this is configurable. List what your key can use:
     #   python -c "from groq import Groq; print([m.id for m in Groq().models.list().data])"
     GROQ_CHAT_MODEL: str = os.getenv("GROQ_CHAT_MODEL") or "openai/gpt-oss-120b"
+    # Prices for the dashboard's AI-cost estimate (USD per 1M tokens) and the
+    # exchange rate. Defaults are assumptions — check groq.com/pricing and
+    # set the current values in .env.
+    LLM_PRICE_INPUT_PER_M_USD: float = float(os.getenv("LLM_PRICE_INPUT_PER_M_USD") or "0.15")
+    LLM_PRICE_OUTPUT_PER_M_USD: float = float(os.getenv("LLM_PRICE_OUTPUT_PER_M_USD") or "0.75")
+    # Branch time zone for the dashboard's days (minutes east of UTC; India = 330).
+    BRANCH_UTC_OFFSET_MINUTES: int = int(os.getenv("BRANCH_UTC_OFFSET_MINUTES") or "330")
+    USD_TO_INR: float = float(os.getenv("USD_TO_INR") or "88")
 
     # --- Auth / sessions ---
     TOKEN_TTL_HOURS: int = int(os.getenv("TOKEN_TTL_HOURS", "12"))

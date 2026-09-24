@@ -4,7 +4,9 @@ from sqlalchemy.orm import Session
 from auth.security import get_current_staff
 from database.session import get_db
 from schemas.chat import ChatRequest, ChatResponse
+from services import analytics_service
 from services.ai_orchestrator import ai_orchestrator
+from services.llm_service import start_usage_tracking
 from services.clarification_service import last_customer_question, plan
 from services.session_service import log_turn
 
@@ -14,7 +16,10 @@ router = APIRouter(prefix="/api", tags=["chat"])
 @router.post("/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest, staff: str = Depends(get_current_staff), db: Session = Depends(get_db)):
     p = plan(req.text, req.complexity, last_customer_question(db, req.session_id))
+    start_usage_tracking()
     result = ai_orchestrator.handle_customer_query(text=p.query, language=req.language, complexity=p.complexity, followup=p.instruction)
+    analytics_service.record_answer(db, channel="staff_session", session_id=req.session_id, language=req.language, question=p.query,
+                                    result=result, level_change=p.level_change, elderly_mode=req.elderly_mode)
     result.update(complexity_used=p.complexity, level_change=p.level_change, reexplained_question=p.reexplained_question)
 
     log_turn(db, req.session_id, "customer", req.language, req.text, "")
