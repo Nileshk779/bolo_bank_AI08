@@ -34,7 +34,10 @@ from services.rag_service import (
     retriever,
 )
 
-DIM = 32
+# Same size as the real model's vectors. With ~360 indexed vectors
+# (answers + example questions), random "unrelated" vectors in a small
+# space could land close to a query by chance and make tests flaky.
+DIM = 384
 
 
 def _unit(v: np.ndarray) -> np.ndarray:
@@ -93,13 +96,16 @@ def _install_fake_embedder(chunk_vectors: dict[str, np.ndarray], query_vector_by
 
 
 def test_short_kb_documents_produce_one_chunk_each(real_chunks):
-    # The current knowledge base entries are short (2-4 sentences); confirms
-    # the chunker doesn't over-split them.
+    # Entries at or under CHUNK_SIZE_CHARS must not be over-split, and every
+    # knowledge-base entry must be indexed.
+    docs = rag_service._load_knowledge_base()
     by_doc = {}
     for c in real_chunks:
         by_doc.setdefault(c.doc_id, []).append(c)
-    assert all(len(v) == 1 for v in by_doc.values())
-    assert len(by_doc) == 6
+    assert set(by_doc) == {d["id"] for d in docs}
+    for d in docs:
+        if len(d["content"]) <= rag_service.CHUNK_SIZE_CHARS:
+            assert len(by_doc[d["id"]]) == 1, d["id"]
 
 
 def test_long_document_is_split_into_multiple_overlapping_chunks():
@@ -270,3 +276,78 @@ def rag_service_generate_customer_reply_via_orchestrator(query: str, language: s
     from services.ai_orchestrator import generate_customer_reply
 
     return generate_customer_reply(query, language, "simple")
+
+
+# --- Example questions (paraphrase handling) and hybrid keyword ranking ---
+
+
+def test_knowledge_base_entries_have_example_questions_in_several_languages():
+    import re
+
+    docs = rag_service._load_knowledge_base()
+    for d in docs:
+        assert d.get("questions"), d["id"]
+    scripts = {"devanagari": r"[ऀ-ॿ]", "kannada": r"[ಀ-೿]", "telugu": r"[ఀ-౿]"}
+    all_questions = " ".join(q for d in docs for q in d["questions"])
+    for name, pattern in scripts.items():
+        assert re.search(pattern, all_questions), f"no {name} example questions"
+
+
+def test_match_on_example_question_returns_the_answer_chunk(real_chunks):
+    """A reworded question that is far from the answer text but close to one
+    of the entry's example questions must still retrieve that entry — and
+    the returned context must be the ANSWER, not the example question."""
+    target = _chunk_by_topic(real_chunks, "minimum balance")
+    example = next(d for d in rag_service._load_knowledge_base() if d["id"] == target.doc_id)["questions"][0]
+    q_vec = _base_vector(4242)
+    chunk_vectors = {c.text: _base_vector(1000 + i) for i, c in enumerate(real_chunks)}  # answers all unrelated
+    query = "how much money do I have to leave in the account"
+
+    with _install_fake_embedder({**chunk_vectors, example: q_vec}, {query: _blend(q_vec, _base_vector(7), 0.8)}):
+        results = retriever.retrieve(query)
+
+    assert results[0].chunk.doc_id == target.doc_id
+    assert results[0].chunk.text == target.text
+    assert is_confident(results)
+
+
+def test_each_entry_appears_once_even_if_many_example_questions_match(real_chunks):
+    target = _chunk_by_topic(real_chunks, "savings account")
+    questions = next(d for d in rag_service._load_knowledge_base() if d["id"] == target.doc_id)["questions"]
+    v = _base_vector(5151)
+    vectors = {c.text: _base_vector(2000 + i) for i, c in enumerate(real_chunks)}
+    vectors.update({q: _blend(v, _base_vector(3000 + i), 0.9) for i, q in enumerate(questions)})
+    query = "opening an account"
+
+    with _install_fake_embedder(vectors, {query: v}):
+        results = retriever.retrieve(query, top_k=3)
+
+    ids = [(r.chunk.doc_id, r.chunk.chunk_index) for r in results]
+    assert len(ids) == len(set(ids))
+    assert ids[0][0] == target.doc_id
+
+
+def test_keyword_score_breaks_ties_between_semantically_similar_topics(real_chunks):
+    """When the embedding cannot tell two topics apart, a distinctive word in
+    the query (here 'PAN') decides."""
+    pan = _chunk_by_topic(real_chunks, "PAN or Form 60")
+    kyc = _chunk_by_topic(real_chunks, "KYC Update")
+    shared = _base_vector(6060)
+    vectors = {c.text: _base_vector(4000 + i) for i, c in enumerate(real_chunks)}
+    vectors[pan.text] = shared
+    vectors[kyc.text] = shared
+    query = "I do not have a PAN card"
+
+    with _install_fake_embedder(vectors, {query: shared}):
+        results = retriever.retrieve(query)
+
+    assert results[0].chunk.doc_id == pan.doc_id
+
+
+def test_lexical_index_handles_indian_scripts():
+    from services.lexical_index import LexicalIndex
+
+    index = LexicalIndex(["a", "b"], ["पासबुक अपडेट passbook", "चेक बुक cheque book"])
+    scores = index.scores("मेरी पासबुक खो गई")
+    assert scores["a"] > scores["b"]
+    assert index.scores("") == {"a": 0.0, "b": 0.0}

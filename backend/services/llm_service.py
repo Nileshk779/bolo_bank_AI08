@@ -58,10 +58,14 @@ def chat_completion(system_prompt: str, user_text: str, max_tokens: int = 500, j
     kwargs = {}
     if json_mode:
         kwargs["response_format"] = {"type": "json_object"}
+    if settings.GROQ_CHAT_MODEL.startswith("openai/gpt-oss"):
+        # Reasoning models: keep hidden reasoning short so answers are fast
+        # and the reasoning doesn't use up max_tokens before the reply.
+        kwargs["reasoning_effort"] = "low"
 
     try:
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=settings.GROQ_CHAT_MODEL,
             max_tokens=max_tokens,
             messages=[
                 {"role": "system", "content": system_prompt},

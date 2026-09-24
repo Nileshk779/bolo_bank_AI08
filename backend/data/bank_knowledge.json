@@ -10,6 +10,15 @@
       "open account",
       "documents",
       "KYC"
+    ],
+    "questions": [
+      "How do I open a savings account?",
+      "What documents are needed to open a new bank account?",
+      "naya account kholna hai kya lagega",
+      "बचत खाता खोलने के लिए क्या चाहिए?",
+      "बचत खाते उघडण्यासाठी कोणती कागदपत्रे लागतात?",
+      "ಉಳಿತಾಯ ಖಾತೆ ತೆರೆಯಲು ಏನು ಬೇಕು?",
+      "సేవింగ్స్ ఖాతా తెరవడానికి ఏమి కావాలి?"
     ]
   },
   {
@@ -19,10 +28,27 @@
     "source": "BoloBank Demo Knowledge Base",
     "content": "If KYC information is outdated, the customer should contact an authorized branch channel and provide the required identity or address documents. The AI assistant may explain the process but must not approve KYC verification.",
     "keywords": [
-      "kyc",
-      "update",
+      "Aadhaar",
+      "address proof",
+      "documents",
       "identity proof",
-      "address proof"
+      "KYC",
+      "kyc",
+      "re-KYC",
+      "update",
+      "केवाईसी",
+      "केवायसी",
+      "కేవైసీ",
+      "ಕೆವೈಸಿ"
+    ],
+    "questions": [
+      "How do I update my KYC?",
+      "The bank says my KYC is pending, what should I do?",
+      "KYC update karna hai",
+      "मेरा केवाईसी अपडेट कैसे होगा?",
+      "माझे केवायसी अपडेट कसे करायचे?",
+      "ನನ್ನ ಕೆವೈಸಿ ಹೇಗೆ ನವೀಕರಿಸುವುದು?",
+      "నా కేవైసీ ఎలా అప్‌డేట్ చేయాలి?"
     ]
   },
   {
@@ -36,6 +62,15 @@
       "debit card",
       "block",
       "replacement"
+    ],
+    "questions": [
+      "I lost my debit card, what should I do?",
+      "My ATM card was stolen",
+      "ATM card kho gaya hai",
+      "मेरा एटीएम कार्ड खो गया है",
+      "माझे एटीएम कार्ड हरवले आहे",
+      "ನನ್ನ ಎಟಿಎಂ ಕಾರ್ಡ್ ಕಳೆದುಹೋಗಿದೆ",
+      "నా ఏటీఎం కార్డు పోయింది"
     ]
   },
   {
@@ -49,6 +84,11 @@
       "privacy",
       "tts",
       "speak"
+    ],
+    "questions": [
+      "Will you read my balance out loud?",
+      "Is my balance spoken aloud in voice mode?",
+      "क्या मेरा बैलेंस ज़ोर से बोला जाएगा?"
     ]
   },
   {
@@ -58,10 +98,27 @@
     "source": "BoloBank Demo Knowledge Base",
     "content": "For a pending UPI transaction, the customer should first check the transaction status and reference number in the banking app. If unresolved, staff should guide the customer through the bank's official dispute process.",
     "keywords": [
-      "upi",
+      "BHIM",
+      "dispute",
+      "Google Pay",
+      "GPay",
+      "Paytm",
       "pending",
+      "PhonePe",
       "transaction",
-      "dispute"
+      "upi",
+      "UPI",
+      "यूपीआई",
+      "यूपीआय"
+    ],
+    "questions": [
+      "My UPI payment is pending",
+      "UPI money was debited but not received by the other person",
+      "UPI transaction atak gaya",
+      "मेरा यूपीआई पेमेंट पेंडिंग है",
+      "माझे यूपीआय पेमेंट अडकले आहे",
+      "ನನ್ನ ಯುಪಿಐ ಪಾವತಿ ಬಾಕಿ ಇದೆ",
+      "నా యూపీఐ చెల్లింపు పెండింగ్‌లో ఉంది"
     ]
   },
   {
@@ -74,6 +131,15 @@
       "pension",
       "credit",
       "senior citizen"
+    ],
+    "questions": [
+      "My pension has not come this month",
+      "Pension not credited to my account",
+      "pension abhi tak nahi aayi",
+      "मेरी पेंशन खाते में नहीं आई",
+      "माझी पेन्शन खात्यात जमा झाली नाही",
+      "ನನ್ನ ಪಿಂಚಣಿ ಖಾತೆಗೆ ಬಂದಿಲ್ಲ",
+      "నా పెన్షన్ ఖాతాలో జమ కాలేదు"
     ]
   },
   {
@@ -87,6 +153,15 @@
       "login",
       "reset",
       "otp"
+    ],
+    "questions": [
+      "I cannot log in to mobile banking",
+      "Forgot my mobile banking password",
+      "mobile banking app nahi khul raha",
+      "मोबाइल बैंकिंग में लॉगिन नहीं हो रहा",
+      "मोबाईल बँकिंगमध्ये लॉगिन होत नाही",
+      "ಮೊಬೈಲ್ ಬ್ಯಾಂಕಿಂಗ್‌ಗೆ ಲಾಗಿನ್ ಆಗುತ್ತಿಲ್ಲ",
+      "మొబైల్ బ్యాంకింగ్‌లో లాగిన్ కావడం లేదు"
     ]
   },
   {
@@ -100,6 +175,15 @@
       "eligibility",
       "interest",
       "approval"
+    ],
+    "questions": [
+      "Can I get a loan?",
+      "What loans does the bank give?",
+      "loan chahiye",
+      "मुझे लोन चाहिए",
+      "मला कर्ज हवे आहे",
+      "ನನಗೆ ಸಾಲ ಬೇಕು",
+      "నాకు రుణం కావాలి"
     ]
   },
   {
@@ -113,6 +197,11 @@
       "employee",
       "escalation",
       "confidence"
+    ],
+    "questions": [
+      "I want to talk to a bank employee",
+      "Can a real person help me?",
+      "मुझे किसी कर्मचारी से बात करनी है"
     ]
   },
   {
@@ -127,6 +216,748 @@
       "cvv",
       "otp",
       "card"
+    ],
+    "questions": [
+      "Can you tell me my PIN?",
+      "What is my CVV number?",
+      "मेरा ओटीपी क्या है?"
+    ]
+  },
+  {
+    "id": "KB011",
+    "category": "Accounts",
+    "title": "Minimum Balance Requirement",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Regular savings accounts in this demo bank need an average monthly balance of Rs 1,000 in rural and semi-urban branches and Rs 2,000 in urban branches. If the balance stays lower, a small charge may apply. Basic savings (zero balance) accounts have no minimum balance.",
+    "questions": [
+      "What is the minimum balance I need to keep?",
+      "Is there a penalty if my balance goes low?",
+      "minimum balance kitna rakhna padta hai",
+      "खाते में कम से कम कितने पैसे रखने होते हैं?",
+      "खात्यात किमान किती शिल्लक ठेवावी लागते?",
+      "ಖಾತೆಯಲ್ಲಿ ಕನಿಷ್ಠ ಎಷ್ಟು ಹಣ ಇಡಬೇಕು?",
+      "ఖాతాలో కనీసం ఎంత డబ్బు ఉంచాలి?"
+    ],
+    "keywords": [
+      "AMB",
+      "average monthly balance",
+      "charge",
+      "minimum balance",
+      "penalty",
+      "जुर्माना",
+      "दंड",
+      "शुल्क"
+    ]
+  },
+  {
+    "id": "KB012",
+    "category": "Accounts",
+    "title": "Zero Balance Account (BSBDA / Jan Dhan)",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "A Basic Savings Bank Deposit Account, including Pradhan Mantri Jan Dhan accounts, can be opened with zero balance. There is no minimum balance, and a free RuPay debit card is given. The customer needs Aadhaar or another officially valid identity document.",
+    "questions": [
+      "Can I open an account without any money?",
+      "Do you have a zero balance account?",
+      "Jan Dhan account kaise khule",
+      "बिना पैसे के खाता खुल सकता है क्या?",
+      "शून्य शिल्लक खाते उघडता येते का?",
+      "ಶೂನ್ಯ ಬ್ಯಾಲೆನ್ಸ್ ಖಾತೆ ತೆರೆಯಬಹುದೇ?",
+      "జీరో బ్యాలెన్స్ ఖాతా తెరవచ్చా?"
+    ],
+    "keywords": [
+      "BSBDA",
+      "Jan Dhan",
+      "PMJDY",
+      "RuPay",
+      "zero balance",
+      "जन धन",
+      "जनधन",
+      "शून्य शिल्लक"
+    ]
+  },
+  {
+    "id": "KB013",
+    "category": "Accounts",
+    "title": "Senior Citizen Banking Benefits",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Customers aged 60 and above usually get a slightly higher interest rate on fixed deposits, priority service at the counter, and can submit Form 15H to avoid tax deduction on interest. Customers above 70 or with disability may request doorstep banking.",
+    "questions": [
+      "What special benefits do senior citizens get?",
+      "I am 65 years old, is there anything extra for me?",
+      "senior citizen ko kya fayda milta hai",
+      "वरिष्ठ नागरिकों को बैंक में क्या सुविधा मिलती है?",
+      "ज्येष्ठ नागरिकांना बँकेत काय सुविधा मिळतात?",
+      "ಹಿರಿಯ ನಾಗರಿಕರಿಗೆ ಬ್ಯಾಂಕ್‌ನಲ್ಲಿ ಯಾವ ಸೌಲಭ್ಯಗಳಿವೆ?",
+      "సీనియర్ సిటిజన్లకు బ్యాంకులో ఏ సౌకర్యాలు ఉన్నాయి?"
+    ]
+  },
+  {
+    "id": "KB014",
+    "category": "Accounts",
+    "title": "Adding or Changing a Nominee",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "A nominee is the person who receives the money in the account if the account holder dies. To add or change a nominee, fill the nomination form at the branch and sign it. No fee is charged. Keeping a nominee makes claim settlement much easier for the family.",
+    "questions": [
+      "How do I add a nominee to my account?",
+      "I want to change my nominee",
+      "nominee ka naam badalna hai",
+      "खाते में नॉमिनी कैसे जोड़ें?",
+      "खात्यात वारसदार (नॉमिनी) कसा जोडायचा?",
+      "ಖಾತೆಗೆ ನಾಮಿನಿ ಹೇಗೆ ಸೇರಿಸುವುದು?",
+      "ఖాతాకు నామినీని ఎలా చేర్చాలి?"
+    ],
+    "keywords": [
+      "nomination",
+      "nominee",
+      "नामनिर्देशन",
+      "नामांकन",
+      "नॉमिनी",
+      "वारसदार",
+      "నామినీ",
+      "ನಾಮಿನಿ"
+    ]
+  },
+  {
+    "id": "KB015",
+    "category": "Accounts",
+    "title": "Updating Mobile Number or Address",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "To change the mobile number or address linked to the account, visit the branch with the passbook and an identity proof, and fill the change request form. A new address also needs an address proof. The change is usually done within two working days.",
+    "questions": [
+      "How can I change my registered mobile number?",
+      "I shifted house, how do I update my address?",
+      "mobile number badalna hai account mein",
+      "खाते में मोबाइल नंबर कैसे बदलें?",
+      "खात्याशी जोडलेला मोबाईल नंबर कसा बदलायचा?",
+      "ಖಾತೆಯ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಬದಲಾಯಿಸುವುದು ಹೇಗೆ?",
+      "ఖాతాకు లింక్ అయిన మొబైల్ నంబర్ ఎలా మార్చాలి?"
+    ],
+    "keywords": [
+      "address change",
+      "mobile number",
+      "phone number",
+      "पता",
+      "मोबाइल नंबर",
+      "मोबाईल नंबर"
+    ]
+  },
+  {
+    "id": "KB016",
+    "category": "Accounts",
+    "title": "Joint Account",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Two or more people, for example husband and wife, can open a joint account. They choose how it is operated: 'either or survivor' lets any one holder operate it, 'jointly' needs all signatures. All holders must complete KYC.",
+    "questions": [
+      "Can my wife and I open a joint account?",
+      "What is either or survivor?",
+      "joint account khulwana hai",
+      "पति-पत्नी का संयुक्त खाता कैसे खुलता है?",
+      "संयुक्त खाते कसे उघडायचे?",
+      "ಜಂಟಿ ಖಾತೆ ತೆರೆಯುವುದು ಹೇಗೆ?",
+      "జాయింట్ ఖాతా ఎలా తెరవాలి?"
+    ]
+  },
+  {
+    "id": "KB017",
+    "category": "Accounts",
+    "title": "Closing an Account",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "To close an account, visit the branch with the passbook, unused cheque leaves and the debit card, and sign the closure form. The remaining balance is paid in cash or moved to another account. Accounts closed within the first year may have a small closure charge.",
+    "questions": [
+      "How do I close my bank account?",
+      "I don't want this account anymore",
+      "account band karna hai",
+      "मुझे अपना खाता बंद करना है",
+      "मला माझे खाते बंद करायचे आहे",
+      "ನನ್ನ ಖಾತೆ ಮುಚ್ಚಬೇಕು",
+      "నా ఖాతాను మూసివేయాలి"
+    ]
+  },
+  {
+    "id": "KB018",
+    "category": "Accounts",
+    "title": "Inactive or Dormant Account",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "If no transaction is made for two years, the account becomes inoperative (dormant). The money stays safe and keeps earning interest. To reactivate, visit the branch with an identity proof and complete fresh KYC; there is no charge.",
+    "questions": [
+      "My account has not been used for years, is it closed?",
+      "How do I reactivate a dormant account?",
+      "purana account band ho gaya kya",
+      "मेरा पुराना खाता निष्क्रिय हो गया है",
+      "माझे जुने खाते बंद पडले आहे, पुन्हा कसे सुरू करायचे?",
+      "ನನ್ನ ಹಳೆಯ ಖಾತೆ ನಿಷ್ಕ್ರಿಯವಾಗಿದೆ",
+      "నా పాత ఖాతా నిష్క్రియంగా మారింది"
+    ]
+  },
+  {
+    "id": "KB019",
+    "category": "Accounts",
+    "title": "Passbook Update and Lost Passbook",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "The passbook can be updated at the branch counter or at a passbook printing kiosk. If the passbook is lost, submit a written request at the branch with an identity proof; a duplicate passbook is issued, sometimes with a small fee.",
+    "questions": [
+      "How do I update my passbook?",
+      "I lost my passbook",
+      "passbook print karni hai",
+      "पासबुक कैसे अपडेट करें?",
+      "माझे पासबुक हरवले आहे",
+      "ನನ್ನ ಪಾಸ್‌ಬುಕ್ ಕಳೆದುಹೋಗಿದೆ",
+      "నా పాస్‌బుక్ పోయింది"
+    ]
+  },
+  {
+    "id": "KB020",
+    "category": "Accounts",
+    "title": "Savings Account Interest",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Interest on a savings account is calculated on the daily closing balance and credited to the account every quarter. The current rate is shown on the branch notice board and website, and it can change from time to time.",
+    "questions": [
+      "How much interest do I get on my savings account?",
+      "When is savings interest credited?",
+      "savings account par byaj kitna milta hai",
+      "बचत खाते पर ब्याज कब मिलता है?",
+      "बचत खात्यावर व्याज किती मिळते?",
+      "ಉಳಿತಾಯ ಖಾತೆಗೆ ಬಡ್ಡಿ ಎಷ್ಟು?",
+      "సేవింగ్స్ ఖాతాపై వడ్డీ ఎంత వస్తుంది?"
+    ]
+  },
+  {
+    "id": "KB021",
+    "category": "Cheques",
+    "title": "Cheque Book Request",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "A new cheque book can be requested at the branch, through net banking or mobile banking, or at an ATM. It is delivered to the registered address or collected from the branch, usually within a week. Keep the cheque book in a safe place.",
+    "questions": [
+      "How do I get a new cheque book?",
+      "My cheque book is finished",
+      "cheque book chahiye",
+      "नई चेक बुक कैसे मिलेगी?",
+      "नवीन चेकबुक कशी मिळेल?",
+      "ಹೊಸ ಚೆಕ್ ಬುಕ್ ಹೇಗೆ ಪಡೆಯುವುದು?",
+      "కొత్త చెక్ బుక్ ఎలా పొందాలి?"
+    ]
+  },
+  {
+    "id": "KB022",
+    "category": "Cheques",
+    "title": "Cheque Bounce and Stop Payment",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "A cheque bounces when the account does not have enough balance or the signature does not match; a charge applies. To stop payment of a cheque you issued, give a written request with the cheque number at the branch or use net banking before it is presented.",
+    "questions": [
+      "My cheque bounced, what happens now?",
+      "How do I stop a cheque payment?",
+      "cheque bounce ho gaya",
+      "चेक बाउंस हो गया तो क्या करें?",
+      "चेक बाउन्स झाला तर काय करावे?",
+      "ಚೆಕ್ ಬೌನ್ಸ್ ಆದರೆ ಏನು ಮಾಡಬೇಕು?",
+      "చెక్ బౌన్స్ అయితే ఏమి చేయాలి?"
+    ],
+    "keywords": [
+      "bounce",
+      "check",
+      "cheque",
+      "dishonour",
+      "returned cheque",
+      "stop payment",
+      "चेक"
+    ]
+  },
+  {
+    "id": "KB023",
+    "category": "Cards",
+    "title": "New Debit Card and PIN Generation",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "A new or replacement debit card can be requested at the branch. The PIN is set by the customer at an ATM or through mobile banking using an OTP sent to the registered mobile. Never share the PIN, even with bank staff.",
+    "questions": [
+      "How do I get a new ATM card?",
+      "How do I set my ATM PIN?",
+      "naya ATM card aur PIN kaise banega",
+      "नया एटीएम कार्ड कैसे बनवाएं?",
+      "एटीएम पिन कसा तयार करायचा?",
+      "ಹೊಸ ಎಟಿಎಂ ಕಾರ್ಡ್ ಪಡೆಯುವುದು ಹೇಗೆ?",
+      "ఏటీఎం పిన్ ఎలా సెట్ చేయాలి?"
+    ]
+  },
+  {
+    "id": "KB024",
+    "category": "Cards",
+    "title": "ATM Cash Not Received but Account Debited",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "If money was debited but the ATM did not give cash, keep the transaction slip and raise a complaint at the branch or customer care. As per RBI rules, the amount should be reversed within five working days; if it is late, the bank pays compensation of Rs 100 per day.",
+    "questions": [
+      "ATM did not give money but my account was debited",
+      "Cash not dispensed from ATM",
+      "ATM se paise nahi nikle par cut gaye",
+      "एटीएम से पैसे नहीं निकले लेकिन खाते से कट गए",
+      "एटीएममधून पैसे आले नाहीत पण खात्यातून कापले गेले",
+      "ಎಟಿಎಂನಿಂದ ಹಣ ಬರಲಿಲ್ಲ ಆದರೆ ಖಾತೆಯಿಂದ ಕಡಿತವಾಗಿದೆ",
+      "ఏటీఎం నుంచి డబ్బు రాలేదు కానీ ఖాతా నుంచి కట్ అయింది"
+    ]
+  },
+  {
+    "id": "KB025",
+    "category": "Deposits",
+    "title": "Fixed Deposit (FD)",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "A fixed deposit keeps money for a chosen period, from 7 days to 10 years, at a fixed interest rate. It can be opened at the branch or online. It can be closed early if money is needed, but a small penalty on interest may apply. Senior citizens usually get a higher rate.",
+    "questions": [
+      "How do I open a fixed deposit?",
+      "Can I break my FD before maturity?",
+      "FD kaise karu",
+      "एफडी कैसे खोलें?",
+      "मुदत ठेव कशी करायची?",
+      "ಸ್ಥಿರ ಠೇವಣಿ ಹೇಗೆ ಇಡುವುದು?",
+      "ఫిక్స్‌డ్ డిపాజిట్ ఎలా చేయాలి?"
+    ],
+    "keywords": [
+      "FD",
+      "fixed deposit",
+      "premature",
+      "term deposit",
+      "एफडी",
+      "मुदत ठेव",
+      "ఎఫ్‌డీ",
+      "ಎಫ್‌ಡಿ"
+    ]
+  },
+  {
+    "id": "KB026",
+    "category": "Deposits",
+    "title": "Recurring Deposit (RD)",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "A recurring deposit lets the customer save a fixed small amount every month, for 6 months to 10 years, and earn interest similar to a fixed deposit. The monthly amount can be auto-debited from the savings account. Missing an instalment may attract a small penalty.",
+    "questions": [
+      "What is a recurring deposit?",
+      "I want to save a small amount every month",
+      "har mahine thoda paisa jama karna hai",
+      "आरडी क्या होता है?",
+      "दर महिन्याला थोडे पैसे बचत करायचे आहेत",
+      "ಪ್ರತಿ ತಿಂಗಳು ಸ್ವಲ್ಪ ಹಣ ಉಳಿಸಲು ಯೋಜನೆ ಇದೆಯೇ?",
+      "ప్రతి నెలా కొంచెం డబ్బు పొదుపు చేయాలి"
+    ]
+  },
+  {
+    "id": "KB027",
+    "category": "Deposits",
+    "title": "Form 15G and 15H (Avoid TDS on Interest)",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "If total income is below the taxable limit, the customer can submit Form 15G (below 60 years) or Form 15H (60 years and above) at the start of each financial year, so the bank does not deduct tax (TDS) on deposit interest. PAN is required.",
+    "questions": [
+      "How can I stop tax being cut from my FD interest?",
+      "What is Form 15H?",
+      "FD interest par tax kat raha hai",
+      "एफडी ब्याज से टैक्स क्यों कट रहा है?",
+      "एफडी व्याजावरचा कर कसा वाचवायचा?",
+      "ಎಫ್‌ಡಿ ಬಡ್ಡಿಯಿಂದ ತೆರಿಗೆ ಕಡಿತ ತಪ್ಪಿಸುವುದು ಹೇಗೆ?",
+      "ఎఫ్‌డీ వడ్డీపై పన్ను కట్ కాకుండా ఎలా?"
+    ],
+    "keywords": [
+      "15G",
+      "15H",
+      "tax",
+      "TDS",
+      "कर",
+      "टैक्स",
+      "పన్ను",
+      "ತೆರಿಗೆ"
+    ]
+  },
+  {
+    "id": "KB028",
+    "category": "Deposits",
+    "title": "Deposit Insurance (Is My Money Safe?)",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Deposits in a bank are insured by DICGC, a subsidiary of the Reserve Bank of India, up to Rs 5 lakh per depositor per bank, covering savings, fixed and recurring deposits together, including interest.",
+    "questions": [
+      "Is my money safe in the bank?",
+      "What happens to my money if the bank fails?",
+      "bank doob gaya to paisa milega kya",
+      "बैंक में मेरा पैसा सुरक्षित है क्या?",
+      "बँकेत माझे पैसे सुरक्षित आहेत का?",
+      "ಬ್ಯಾಂಕ್‌ನಲ್ಲಿ ನನ್ನ ಹಣ ಸುರಕ್ಷಿತವೇ?",
+      "బ్యాంకులో నా డబ్బు సురక్షితమేనా?"
+    ],
+    "keywords": [
+      "bank closes",
+      "bank fails",
+      "deposit insurance",
+      "DICGC",
+      "safe",
+      "डूब",
+      "सुरक्षित"
+    ]
+  },
+  {
+    "id": "KB029",
+    "category": "Services",
+    "title": "Locker Facility",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Safe deposit lockers are given on a yearly rent that depends on the locker size and branch. The customer signs a locker agreement, and a nominee can be added. Lockers are allotted in order of the waiting list; a fixed deposit may be asked as security.",
+    "questions": [
+      "Can I get a bank locker?",
+      "How much is the locker rent?",
+      "locker chahiye gehne rakhne ke liye",
+      "बैंक लॉकर कैसे मिलेगा?",
+      "बँकेत लॉकर कसा मिळेल?",
+      "ಬ್ಯಾಂಕ್ ಲಾಕರ್ ಪಡೆಯುವುದು ಹೇಗೆ?",
+      "బ్యాంక్ లాకర్ ఎలా పొందాలి?"
+    ],
+    "keywords": [
+      "locker",
+      "safe deposit",
+      "valuables",
+      "लॉकर",
+      "లాకర్",
+      "ಲಾಕರ್"
+    ]
+  },
+  {
+    "id": "KB030",
+    "category": "Pension",
+    "title": "Life Certificate (Jeevan Pramaan) for Pensioners",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Pensioners must submit a life certificate every year in November to keep receiving pension; pensioners aged 80 and above can submit from 1 October. It can be given at the branch or digitally through Jeevan Pramaan using Aadhaar and a fingerprint or face scan.",
+    "questions": [
+      "When do I submit my life certificate?",
+      "How do I give Jeevan Pramaan?",
+      "life certificate jama karna hai pension ke liye",
+      "पेंशन के लिए जीवन प्रमाण पत्र कब देना है?",
+      "हयातीचा दाखला कधी द्यायचा?",
+      "ಜೀವನ ಪ್ರಮಾಣಪತ್ರ ಯಾವಾಗ ಸಲ್ಲಿಸಬೇಕು?",
+      "లైఫ్ సర్టిఫికెట్ ఎప్పుడు ఇవ్వాలి?"
+    ],
+    "keywords": [
+      "Jeevan Pramaan",
+      "life certificate",
+      "November",
+      "जीवन प्रमाण",
+      "हयातीचा दाखला"
+    ]
+  },
+  {
+    "id": "KB031",
+    "category": "Safety",
+    "title": "Fraud Calls and Messages",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "The bank never asks for OTP, PIN, CVV or passwords by call, SMS or link. If someone asks, it is a fraud: do not share anything and cut the call. If money is lost, immediately call the national cyber fraud helpline 1930 or report at cybercrime.gov.in, and inform the branch.",
+    "questions": [
+      "Someone called asking for my OTP",
+      "I got a message saying my account will be blocked",
+      "kisi ne phone karke OTP maanga",
+      "किसी ने बैंक के नाम से फोन करके ओटीपी मांगा",
+      "बँकेच्या नावाने फोन करून ओटीपी मागितला",
+      "ಬ್ಯಾಂಕ್ ಹೆಸರಿನಲ್ಲಿ ಕರೆ ಮಾಡಿ ಒಟಿಪಿ ಕೇಳಿದರು",
+      "బ్యాంక్ పేరుతో ఫోన్ చేసి ఓటీపీ అడిగారు"
+    ],
+    "keywords": [
+      "1930",
+      "cyber",
+      "fraud",
+      "OTP",
+      "phishing",
+      "scam",
+      "धोखा",
+      "फसवणूक"
+    ]
+  },
+  {
+    "id": "KB032",
+    "category": "Safety",
+    "title": "Unauthorised Transaction in My Account",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "If money is taken from the account without permission, block the card or net banking at once and report to the bank immediately. As per RBI rules, if a third-party fraud is reported within three working days, the customer does not lose the money.",
+    "questions": [
+      "Money was taken from my account without my permission",
+      "There is a transaction I did not do",
+      "mere account se paise kat gaye maine nahi kiya",
+      "मेरे खाते से बिना बताए पैसे निकल गए",
+      "माझ्या खात्यातून परवानगीशिवाय पैसे गेले",
+      "ನನ್ನ ಖಾತೆಯಿಂದ ಅನುಮತಿ ಇಲ್ಲದೆ ಹಣ ಹೋಗಿದೆ",
+      "నా ఖాతా నుంచి అనుమతి లేకుండా డబ్బు పోయింది"
+    ],
+    "keywords": [
+      "dispute",
+      "fraud transaction",
+      "not done by me",
+      "unauthorised",
+      "धोखाधड़ी"
+    ]
+  },
+  {
+    "id": "KB033",
+    "category": "UPI",
+    "title": "Setting Up UPI",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "To use UPI, install a UPI app, register with the mobile number linked to the bank account, select the bank and set a UPI PIN using the debit card details and an OTP. The UPI PIN is secret; it is needed only to send money, never to receive money.",
+    "questions": [
+      "How do I start using UPI?",
+      "How to set UPI PIN?",
+      "UPI kaise chalu karu",
+      "यूपीआई कैसे शुरू करें?",
+      "यूपीआय कसे सुरू करायचे?",
+      "ಯುಪಿಐ ಹೇಗೆ ಶುರು ಮಾಡುವುದು?",
+      "యూపీఐ ఎలా మొదలుపెట్టాలి?"
+    ],
+    "keywords": [
+      "BHIM",
+      "Google Pay",
+      "Paytm",
+      "PhonePe",
+      "UPI PIN",
+      "यूपीआई पिन"
+    ]
+  },
+  {
+    "id": "KB034",
+    "category": "UPI",
+    "title": "Money Sent to the Wrong Person",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "If money was sent to a wrong UPI ID or account, immediately raise a complaint in the UPI app and inform the bank with the transaction reference number. The bank will contact the receiver's bank, but the money can be returned only with the receiver's agreement, so recovery is not guaranteed.",
+    "questions": [
+      "I sent money to the wrong number",
+      "Wrong UPI transfer, can I get it back?",
+      "galti se kisi aur ko paise bhej diye",
+      "गलती से किसी और को पैसे भेज दिए",
+      "चुकून दुसऱ्याला पैसे पाठवले",
+      "ತಪ್ಪಾಗಿ ಬೇರೆಯವರಿಗೆ ಹಣ ಕಳುಹಿಸಿದೆ",
+      "పొరపాటున వేరొకరికి డబ్బు పంపాను"
+    ],
+    "keywords": [
+      "Google Pay",
+      "PhonePe",
+      "wrong account",
+      "wrong number",
+      "wrong transfer",
+      "wrong UPI",
+      "गलत"
+    ]
+  },
+  {
+    "id": "KB035",
+    "category": "Payments",
+    "title": "NEFT, RTGS and IMPS",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "NEFT and IMPS work 24 hours on all days; IMPS is instant and NEFT is settled in half-hourly batches. RTGS is for amounts of Rs 2 lakh and above and is also real time. To send money, the receiver's account number and IFSC code are needed.",
+    "questions": [
+      "What is the difference between NEFT and RTGS?",
+      "How do I send money to another bank?",
+      "dusre bank mein paise kaise bheje",
+      "दूसरे बैंक में पैसे कैसे भेजें?",
+      "दुसऱ्या बँकेत पैसे कसे पाठवायचे?",
+      "ಬೇರೆ ಬ್ಯಾಂಕ್‌ಗೆ ಹಣ ಕಳುಹಿಸುವುದು ಹೇಗೆ?",
+      "వేరే బ్యాంకుకు డబ్బు ఎలా పంపాలి?"
+    ]
+  },
+  {
+    "id": "KB036",
+    "category": "Digital",
+    "title": "Net Banking Registration",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Net banking can be activated at the branch or online using the debit card and an OTP on the registered mobile. On first login the customer sets a new password. Never open net banking from links in messages; always type the bank's website address.",
+    "questions": [
+      "How do I start net banking?",
+      "I want internet banking",
+      "net banking chalu karna hai",
+      "नेट बैंकिंग कैसे शुरू करें?",
+      "नेट बँकिंग कसे सुरू करायचे?",
+      "ನೆಟ್ ಬ್ಯಾಂಕಿಂಗ್ ಹೇಗೆ ಆರಂಭಿಸುವುದು?",
+      "నెట్ బ్యాంకింగ్ ఎలా ప్రారంభించాలి?"
+    ],
+    "keywords": [
+      "internet banking",
+      "net banking",
+      "online banking",
+      "ऑनलाइन",
+      "नेट बैंकिंग"
+    ]
+  },
+  {
+    "id": "KB037",
+    "category": "Digital",
+    "title": "SMS Alerts and Balance by Missed Call",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "SMS alerts are sent to the registered mobile for every transaction. Customers can also check their balance by giving a missed call to the bank's balance enquiry number from the registered mobile. Update the mobile number at the branch if alerts do not come.",
+    "questions": [
+      "How can I check my balance without going to the bank?",
+      "I am not getting SMS alerts",
+      "missed call se balance kaise dekhe",
+      "मिस्ड कॉल से बैलेंस कैसे जानें?",
+      "एसएमएस अलर्ट येत नाहीत",
+      "ಮಿಸ್ಡ್ ಕಾಲ್ ಮೂಲಕ ಬ್ಯಾಲೆನ್ಸ್ ತಿಳಿಯುವುದು ಹೇಗೆ?",
+      "మిస్డ్ కాల్ ద్వారా బ్యాలెన్స్ ఎలా తెలుసుకోవాలి?"
+    ]
+  },
+  {
+    "id": "KB038",
+    "category": "KYC",
+    "title": "Linking Aadhaar for Subsidy and DBT",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "To receive government subsidies and benefits (DBT) such as LPG subsidy, scholarships or PM-KISAN directly in the account, the account must be linked (seeded) with Aadhaar. Submit the Aadhaar seeding consent form at the branch; it is free.",
+    "questions": [
+      "My gas subsidy is not coming to my account",
+      "How do I link Aadhaar with my bank account?",
+      "aadhaar link karna hai account se",
+      "खाते से आधार कैसे लिंक करें?",
+      "सबसिडी खात्यात येत नाही",
+      "ಆಧಾರ್ ಅನ್ನು ಖಾತೆಗೆ ಲಿಂಕ್ ಮಾಡುವುದು ಹೇಗೆ?",
+      "ఆధార్‌ను ఖాతాకు లింక్ చేయడం ఎలా?"
+    ],
+    "keywords": [
+      "Aadhaar seeding",
+      "DBT",
+      "PM Kisan",
+      "PM-KISAN",
+      "subsidy",
+      "अनुदान",
+      "आधार",
+      "सब्सिडी"
+    ]
+  },
+  {
+    "id": "KB039",
+    "category": "KYC",
+    "title": "PAN or Form 60",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "PAN is needed for certain transactions, for example depositing more than Rs 50,000 in cash in a day, or opening a fixed deposit above that amount. Customers who do not have PAN can fill Form 60 instead.",
+    "questions": [
+      "Is PAN card compulsory?",
+      "I don't have a PAN card, can I still deposit cash?",
+      "PAN card nahi hai to kya kare",
+      "पैन कार्ड नहीं है तो क्या करें?",
+      "पॅन कार्ड नसेल तर काय करायचे?",
+      "ಪ್ಯಾನ್ ಕಾರ್ಡ್ ಇಲ್ಲದಿದ್ದರೆ ಏನು ಮಾಡಬೇಕು?",
+      "పాన్ కార్డ్ లేకపోతే ఏమి చేయాలి?"
+    ],
+    "keywords": [
+      "cash deposit",
+      "Form 60",
+      "PAN",
+      "पॅन",
+      "पैन",
+      "పాన్",
+      "ಪ್ಯಾನ್"
+    ]
+  },
+  {
+    "id": "KB040",
+    "category": "Loan",
+    "title": "Gold Loan Basics",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "A gold loan is given by keeping gold jewellery with the bank. The amount depends on the weight and purity of the gold, up to the limit allowed by RBI. The gold is returned when the loan is repaid. Use the loan eligibility checker to see an estimate; staff confirm the final amount.",
+    "questions": [
+      "Can I take a loan on my gold?",
+      "How much loan will I get on my jewellery?",
+      "sona girvi rakhkar loan milega kya",
+      "सोने पर लोन कैसे मिलता है?",
+      "सोन्यावर कर्ज मिळेल का?",
+      "ಚಿನ್ನದ ಮೇಲೆ ಸಾಲ ಸಿಗುತ್ತದೆಯೇ?",
+      "బంగారంపై రుణం వస్తుందా?"
+    ]
+  },
+  {
+    "id": "KB041",
+    "category": "Loan",
+    "title": "Farm Loans and Kisan Credit Card",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Farmers can get a Kisan Credit Card for crop and farm expenses, and term loans against farm land for items like a well, pump or tractor. Land records and crop details are needed. Use the loan eligibility checker to see which schemes may fit; staff confirm eligibility.",
+    "questions": [
+      "I am a farmer, what loans can I get?",
+      "How do I get a Kisan Credit Card?",
+      "kheti ke liye loan chahiye",
+      "किसान क्रेडिट कार्ड कैसे बनेगा?",
+      "शेतीसाठी कर्ज कसे मिळेल?",
+      "ರೈತರಿಗೆ ಯಾವ ಸಾಲ ಸಿಗುತ್ತದೆ?",
+      "రైతులకు ఏ రుణాలు లభిస్తాయి?"
+    ]
+  },
+  {
+    "id": "KB042",
+    "category": "Government Schemes",
+    "title": "Insurance and Pension Schemes (PMJJBY, PMSBY, APY)",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "PMJJBY gives Rs 2 lakh life cover for Rs 436 a year (age 18-50). PMSBY gives Rs 2 lakh accident cover for Rs 20 a year (age 18-70). Atal Pension Yojana gives a monthly pension of Rs 1,000 to Rs 5,000 after 60 (join between 18 and 40). Premiums are auto-debited from the savings account.",
+    "questions": [
+      "Is there cheap insurance through the bank?",
+      "What is Atal Pension Yojana?",
+      "20 rupaye wala bima kya hai",
+      "बैंक से सस्ता बीमा मिलता है क्या?",
+      "अटल पेन्शन योजना काय आहे?",
+      "ಕಡಿಮೆ ಬೆಲೆಯ ವಿಮೆ ಬ್ಯಾಂಕ್‌ನಲ್ಲಿ ಇದೆಯೇ?",
+      "తక్కువ ధరకు బీమా బ్యాంకులో ఉందా?"
+    ],
+    "keywords": [
+      "APY",
+      "Atal Pension",
+      "insurance",
+      "pension scheme",
+      "PMJJBY",
+      "PMSBY",
+      "बीमा",
+      "विमा"
+    ]
+  },
+  {
+    "id": "KB043",
+    "category": "Branch",
+    "title": "Branch Working Hours and Holidays",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Branches of this demo bank are open from 10 am to 4 pm, Monday to Saturday. They are closed on Sundays, on the second and fourth Saturdays of the month, and on public holidays. ATMs, UPI and net banking work at all times.",
+    "questions": [
+      "What time does the bank open?",
+      "Is the bank open on Saturday?",
+      "bank kitne baje khulta hai",
+      "बैंक कब खुलता है?",
+      "बँक किती वाजता उघडते?",
+      "ಬ್ಯಾಂಕ್ ಎಷ್ಟು ಗಂಟೆಗೆ ತೆರೆಯುತ್ತದೆ?",
+      "బ్యాంక్ ఎన్ని గంటలకు తెరుస్తారు?"
+    ]
+  },
+  {
+    "id": "KB044",
+    "category": "Branch",
+    "title": "Complaints and Banking Ombudsman",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Complaints can be given at the branch, by customer care or online; a reference number is given. If the complaint is not solved within 30 days, or the reply is not satisfactory, the customer can complain free of cost to the RBI Ombudsman at cms.rbi.org.in.",
+    "questions": [
+      "How do I file a complaint against the bank?",
+      "My problem is not solved, where do I complain?",
+      "shikayat kaha kare",
+      "बैंक के खिलाफ शिकायत कैसे करें?",
+      "बँकेविरुद्ध तक्रार कशी करायची?",
+      "ಬ್ಯಾಂಕ್ ವಿರುದ್ಧ ದೂರು ಹೇಗೆ ನೀಡುವುದು?",
+      "బ్యాంకుపై ఫిర్యాదు ఎలా చేయాలి?"
+    ]
+  },
+  {
+    "id": "KB045",
+    "category": "Branch",
+    "title": "Withdrawing Cash at the Branch",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "Cash can be withdrawn at the branch counter using a withdrawal slip and the passbook, even without an ATM card. Staff can help fill the slip. For large amounts, informing the branch a day in advance helps.",
+    "questions": [
+      "How do I take out money from the counter?",
+      "I don't have an ATM card, how do I withdraw cash?",
+      "counter se paise kaise nikale",
+      "बिना एटीएम कार्ड के पैसे कैसे निकालें?",
+      "एटीएम कार्डशिवाय पैसे कसे काढायचे?",
+      "ಎಟಿಎಂ ಕಾರ್ಡ್ ಇಲ್ಲದೆ ಹಣ ತೆಗೆಯುವುದು ಹೇಗೆ?",
+      "ఏటీఎం కార్డు లేకుండా డబ్బు ఎలా తీయాలి?"
+    ]
+  },
+  {
+    "id": "KB046",
+    "category": "Accounts",
+    "title": "Claim After Account Holder's Death",
+    "source": "BoloBank Demo Knowledge Base",
+    "content": "If an account holder dies, the nominee or legal heirs can claim the money. Submit the claim form, the death certificate, and identity proof of the nominee at the branch. With a nominee, the claim is usually settled within 15 days.",
+    "questions": [
+      "My father died, how do we get the money in his account?",
+      "How does a nominee claim the money?",
+      "account holder ki death ho gayi paisa kaise milega",
+      "खाताधारक की मृत्यु के बाद पैसा कैसे मिलेगा?",
+      "खातेदाराच्या मृत्यूनंतर पैसे कसे मिळतात?",
+      "ಖಾತೆದಾರರ ಮರಣದ ನಂತರ ಹಣ ಹೇಗೆ ಪಡೆಯುವುದು?",
+      "ఖాతాదారుడు చనిపోతే డబ్బు ఎలా పొందాలి?"
     ]
   }
 ]

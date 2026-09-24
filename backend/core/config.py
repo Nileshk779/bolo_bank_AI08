@@ -26,6 +26,10 @@ class Settings:
 
     # --- LLM / STT provider ---
     GROQ_API_KEY: str | None = os.getenv("GROQ_API_KEY")
+    # Chat model. Groq retires models over time (llama-3.3-70b-versatile is no
+    # longer offered), so this is configurable. List what your key can use:
+    #   python -c "from groq import Groq; print([m.id for m in Groq().models.list().data])"
+    GROQ_CHAT_MODEL: str = os.getenv("GROQ_CHAT_MODEL") or "openai/gpt-oss-120b"
 
     # --- Auth / sessions ---
     TOKEN_TTL_HOURS: int = int(os.getenv("TOKEN_TTL_HOURS", "12"))

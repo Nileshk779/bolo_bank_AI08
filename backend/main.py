@@ -44,6 +44,7 @@ from core.exceptions import register_exception_handlers
 from core.logging import setup_logging
 from database.models import Base
 from database.session import SessionLocal, engine
+from services.rag_service import retriever
 from services.scheme_update_service import run_update
 
 setup_logging()
@@ -77,10 +78,22 @@ async def _scheme_update_loop() -> None:
         await asyncio.sleep(settings.SCHEME_UPDATE_INTERVAL_HOURS * 3600)
 
 
+async def _warm_up_retrieval() -> None:
+    """Loads the embedding model and builds the knowledge-base index in the
+    background at startup (~8 s), so the first customer question isn't slow."""
+    try:
+        await asyncio.to_thread(retriever.retrieve, "warm up")
+        logger.info("Knowledge-base search index ready")
+    except Exception:
+        logger.exception("Knowledge-base warm-up failed; the index will be built on the first question instead")
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     task = asyncio.create_task(_scheme_update_loop()) if settings.SCHEME_AUTO_UPDATE else None
+    warm_up = asyncio.create_task(_warm_up_retrieval())
     yield
+    warm_up.cancel()
     if task:
         task.cancel()
 
