@@ -174,11 +174,12 @@ export default function BranchDashboard({ onOpenSchemes }) {
               <HBars rows={Object.entries(data.channels).map(([c, n]) => ({ label: CHANNEL[c] || c, value: n }))} empty="No questions yet" />
             </Card>
             <Card title="AI cost" icon={Coins} className="lg:col-span-2">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
                 <Mini label="AI calls" value={num(data.cost.llm_calls)} />
                 <Mini label="Tokens" value={num(data.cost.prompt_tokens + data.cost.completion_tokens)} />
                 <Mini label="Total cost" value={inr(data.cost.cost_inr)} />
                 <Mini label="Per question" value={data.cost.cost_per_question_inr == null ? '—' : `₹${data.cost.cost_per_question_inr.toFixed(3)}`} />
+                <Mini label="Answered from cache (no AI cost)" value={num(data.cost.answered_from_cache)} />
               </div>
               <p className="mt-4 text-xs text-charcoal/55">
                 Estimate for {data.cost.assumptions.model} at ${data.cost.assumptions.input_usd_per_million_tokens} / ${data.cost.assumptions.output_usd_per_million_tokens} per million input / output tokens and ₹{data.cost.assumptions.usd_to_inr} per US$ — set current prices in backend/.env. {data.cost.assumptions.note}

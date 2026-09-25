@@ -57,6 +57,10 @@ import json
 import logging
 
 from services import account_service, response_privacy_service, risk_service, translation_service
+from services import metrics
+from services.answer_cache import answer_cache, is_cacheable
+from core.config import settings
+from services.embedding_service import embedding_service
 from services.llm_service import COMPLEXITY_INSTRUCTIONS, LANGUAGE_NAMES, chat_completion
 from services.rag_service import build_context, grounding_fallback, is_confident, retriever
 
@@ -167,7 +171,7 @@ class AIOrchestrator:
             reply_local = grounding_fallback(language)
             reply_english = grounding_fallback("en")
         else:
-            raw = self._generate_customer_completion(text, retrieval["context"], language, complexity, followup)
+            raw = self._cached_customer_completion(text, retrieval, language, complexity, followup)
             reply_local, reply_english = translation_service.split_local_and_english(raw)
 
         protected = response_privacy_service.protect_for_speech(reply_local, language=language)
@@ -184,6 +188,22 @@ class AIOrchestrator:
             "risk_level": risk.level,
             "requires_human_review": risk.requires_human_review,
         }
+
+    def _cached_customer_completion(self, text: str, retrieval: dict, language: str, complexity: str, followup: str | None) -> str:
+        """Reuses a recent answer to an equivalent question (services/answer_cache.py)
+        instead of calling the AI again."""
+        if not (settings.ANSWER_CACHE_ENABLED and is_cacheable(text)):
+            return self._generate_customer_completion(text, retrieval["context"], language, complexity, followup)
+        bucket = (language, complexity, followup or "", tuple((s["doc_id"], s["chunk_index"]) for s in retrieval["sources"]))
+        vector = embedding_service.embed([text])[0]
+        cached = answer_cache.get(bucket, vector)
+        metrics.CACHE.labels("answer", "hit" if cached is not None else "miss").inc()
+        if cached is not None:
+            return cached
+        raw = self._generate_customer_completion(text, retrieval["context"], language, complexity, followup)
+        if raw.strip():
+            answer_cache.put(bucket, vector, raw)
+        return raw
 
     def _generate_customer_completion(self, text: str, context: str, language: str, complexity: str, followup: str | None = None) -> str:
         lang_name = LANGUAGE_NAMES.get(language, "Hindi")

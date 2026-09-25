@@ -1,6 +1,6 @@
 import logging
 
-from fastapi import APIRouter, Depends, Form, HTTPException
+from fastapi import APIRouter, Depends, Form, HTTPException, Request
 from sqlalchemy.orm import Session
 
 from auth.google_auth import GoogleAuthNotConfigured, verify_google_id_token
@@ -9,13 +9,15 @@ from core.config import settings
 from database.models import Staff
 from database.session import get_db
 from schemas.auth import AuthConfigResponse, GoogleLoginRequest, LoginResponse
+from services.rate_limit import limit_login
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 logger = logging.getLogger("bolobank.auth")
 
 
 @router.post("/login", response_model=LoginResponse)
-async def login(username: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+def login(request: Request, username: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+    limit_login(request, username)
     if not settings.ENABLE_PASSWORD_LOGIN:
         raise HTTPException(403, "Password login is disabled. Use Google Sign-In.")
     staff = db.query(Staff).filter(Staff.username == username).first()
@@ -30,7 +32,7 @@ async def login(username: str = Form(...), password: str = Form(...), db: Sessio
 
 
 @router.post("/google", response_model=LoginResponse)
-async def google_login(req: GoogleLoginRequest, db: Session = Depends(get_db)):
+def google_login(req: GoogleLoginRequest, request: Request, db: Session = Depends(get_db)):
     """Staff sign-in via Google. Flow:
       1. Verify the ID token server-side (signature, issuer, audience, expiry).
       2. Look up the verified email in the Staff table — this is the
@@ -43,6 +45,7 @@ async def google_login(req: GoogleLoginRequest, db: Session = Depends(get_db)):
          so every other route in the app (get_current_staff, etc.) works
          the same regardless of which method was used to sign in.
     """
+    limit_login(request)
     try:
         claims = verify_google_id_token(req.credential)
     except GoogleAuthNotConfigured:

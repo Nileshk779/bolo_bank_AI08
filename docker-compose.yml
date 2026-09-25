@@ -1,0 +1,96 @@
+# BoloBank production-style stack.
+#
+#   cp .env.example .env                  # set POSTGRES_PASSWORD
+#   (backend/.env must exist: GROQ_API_KEY, SECRET_KEY, ...)
+#   docker compose up -d --build
+#   open http://localhost:8080
+#
+#   More API capacity:   docker compose up -d --scale api=4
+#   Logs:                docker compose logs -f api
+#
+# See DEPLOYMENT.md for HTTPS, backups and moving the SQLite demo data.
+
+x-backend-env: &backend-env
+  DATABASE_URL: postgresql+psycopg://bolobank:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/bolobank
+  REDIS_URL: redis://redis:6379/0
+  AUTO_MIGRATE: "false"          # the one-off "migrate" service applies migrations
+  SCHEME_AUTO_UPDATE: "false"    # the "worker" service runs scheduled jobs
+  TRUST_PROXY_HEADERS: "true"    # real client IPs come from the web proxy
+  LOG_FORMAT: json
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: bolobank
+      POSTGRES_USER: bolobank
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bolobank -d bolobank"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    # Cache and rate-limit counters only — nothing that must survive a
+    # restart, so no persistence; least-recently-used keys are evicted.
+    command: ["redis-server", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  migrate:
+    image: bolobank-backend
+    build: ./backend
+    command: ["alembic", "upgrade", "head"]
+    env_file: ./backend/.env
+    environment: *backend-env
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    image: bolobank-backend
+    env_file: ./backend/.env
+    environment: *backend-env
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+    deploy:
+      replicas: ${API_REPLICAS:-2}
+    restart: unless-stopped
+
+  worker:
+    image: bolobank-backend
+    command: ["python", "worker.py"]
+    env_file: ./backend/.env
+    environment: *backend-env
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  web:
+    image: bolobank-web
+    build:
+      context: ./frontend
+      args:
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID:-}
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  pgdata:

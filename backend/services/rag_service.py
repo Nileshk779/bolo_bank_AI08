@@ -34,6 +34,7 @@ Measured effect of both: see tests/eval_rag.py.
 """
 import json
 import re
+import threading
 
 from core.config import KNOWLEDGE_BASE_PATH
 from services.embedding_service import embedding_service
@@ -125,8 +126,15 @@ class SemanticRetriever:
         self._lexical: LexicalIndex | None = None
         self._index_questions = index_example_questions
         self._lexical_weight = lexical_weight
+        self._lock = threading.Lock()  # build the index once even if many requests arrive together
 
     def _ensure_index(self) -> InMemoryVectorStore:
+        if self._store is not None:
+            return self._store
+        with self._lock:
+            return self._build_index() if self._store is None else self._store
+
+    def _build_index(self) -> InMemoryVectorStore:
         if self._store is None:
             chunks = _load_and_chunk_knowledge_base()
             store = InMemoryVectorStore()

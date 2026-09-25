@@ -14,3 +14,10 @@ google-auth>=2.34,<3
 # Semantic RAG — embeddings + vector similarity search
 sentence-transformers>=3.0,<4
 numpy>=1.26,<3
+
+# Phase 2 scaling — all optional at runtime: without DATABASE_URL / REDIS_URL
+# the app keeps using SQLite and in-process memory.
+psycopg[binary]>=3.2,<4
+redis>=5.0,<7
+alembic>=1.13,<2
+prometheus-client>=0.20,<1

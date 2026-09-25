@@ -8,13 +8,14 @@ from services import analytics_service
 from services.ai_orchestrator import ai_orchestrator
 from services.llm_service import start_usage_tracking
 from services.clarification_service import last_customer_question, plan
+from services.rate_limit import limit_staff_ai
 from services.session_service import log_turn
 
 router = APIRouter(prefix="/api", tags=["chat"])
 
 
-@router.post("/chat", response_model=ChatResponse)
-async def chat(req: ChatRequest, staff: str = Depends(get_current_staff), db: Session = Depends(get_db)):
+@router.post("/chat", response_model=ChatResponse, dependencies=[Depends(limit_staff_ai)])
+def chat(req: ChatRequest, staff: str = Depends(get_current_staff), db: Session = Depends(get_db)):
     p = plan(req.text, req.complexity, last_customer_question(db, req.session_id))
     start_usage_tracking()
     result = ai_orchestrator.handle_customer_query(text=p.query, language=req.language, complexity=p.complexity, followup=p.instruction)

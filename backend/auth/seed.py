@@ -1,5 +1,7 @@
 import logging
 
+from sqlalchemy.exc import IntegrityError
+
 from auth.security import hash_password
 from core.config import settings
 from database.models import Staff
@@ -18,6 +20,8 @@ def seed_default_staff() -> None:
             db.add(Staff(username="staff", display_name="Branch Staff", password_salt=salt, password_hash=pw_hash))
             db.commit()
             logger.info("Seeded default staff account (username=staff)")
+    except IntegrityError:  # another server process seeded it at the same moment
+        db.rollback()
     finally:
         db.close()
 
@@ -45,5 +49,7 @@ def seed_authorized_employees() -> None:
         if added:
             db.commit()
             logger.info("Seeded %d authorized employee(s) for Google sign-in", added)
+    except IntegrityError:  # another server process seeded them at the same moment
+        db.rollback()
     finally:
         db.close()

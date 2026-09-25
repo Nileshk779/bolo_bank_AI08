@@ -24,6 +24,9 @@ os.environ.setdefault("GOOGLE_CLIENT_ID", "test-client-id.apps.googleusercontent
 os.environ.setdefault("ENABLE_PASSWORD_LOGIN", "true")
 os.environ.setdefault("SCHEME_EXTRACTION_MODE", "preset")
 os.environ.setdefault("SCHEME_AUTO_UPDATE", "false")
+os.environ.setdefault("RATE_LIMIT_ENABLED", "false")  # enabled explicitly in tests/test_rate_limit.py
+os.environ.setdefault("ANSWER_CACHE_ENABLED", "false")  # enabled explicitly in tests/test_caches.py
+os.environ.setdefault("TTS_CACHE_ENABLED", "false")
 os.environ.setdefault("SEED_DEMO_STAFF", "true")
 os.environ.setdefault("AUTHORIZED_EMPLOYEE_EMAILS", "authorized.teller@bolobank.co.in,swap.test@bolobank.co.in")
 

@@ -1,5 +1,6 @@
 """Structured logging setup — call setup_logging() once at startup (main.py
 does this). Everywhere else, just use logging.getLogger(__name__)."""
+import json
 import logging
 import sys
 
@@ -14,12 +15,15 @@ def setup_logging() -> None:
         return
 
     handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(
-        logging.Formatter(
-            fmt="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
-            datefmt="%Y-%m-%d %H:%M:%S",
+    if settings.LOG_FORMAT == "json":
+        handler.setFormatter(_JsonFormatter())
+    else:
+        handler.setFormatter(
+            logging.Formatter(
+                fmt="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
+                datefmt="%Y-%m-%d %H:%M:%S",
+            )
         )
-    )
 
     root = logging.getLogger()
     root.setLevel(settings.LOG_LEVEL)
@@ -37,3 +41,18 @@ def setup_logging() -> None:
             "SECRET_KEY is not set — using the insecure default. "
             "Set SECRET_KEY in your .env before any real deployment."
         )
+
+
+class _JsonFormatter(logging.Formatter):
+    """One JSON object per line, for log collectors (LOG_FORMAT=json)."""
+
+    def format(self, record: logging.LogRecord) -> str:
+        entry = {
+            "time": self.formatTime(record, "%Y-%m-%dT%H:%M:%S%z"),
+            "level": record.levelname,
+            "logger": record.name,
+            "message": record.getMessage(),
+        }
+        if record.exc_info:
+            entry["exception"] = self.formatException(record.exc_info)
+        return json.dumps(entry, ensure_ascii=False)

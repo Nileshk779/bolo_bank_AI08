@@ -10,12 +10,13 @@ from services import analytics_service
 from services.ai_orchestrator import ai_orchestrator
 from services.llm_service import start_usage_tracking
 from services.clarification_service import plan
+from services.rate_limit import limit_staff_ai
 
 router = APIRouter(prefix="/api", tags=["copilot"])
 
 
-@router.post("/copilot", response_model=CopilotResponse)
-async def copilot(req: CopilotRequest, staff: str = Depends(get_current_staff), db: Session = Depends(get_db)):
+@router.post("/copilot", response_model=CopilotResponse, dependencies=[Depends(limit_staff_ai)])
+def copilot(req: CopilotRequest, staff: str = Depends(get_current_staff), db: Session = Depends(get_db)):
     p = plan(req.query, req.complexity, req.previous_query)
     start_usage_tracking()
     result = ai_orchestrator.handle_employee_query(query=p.query, language=req.language, complexity=p.complexity, followup=p.instruction)

@@ -1,8 +1,10 @@
 from datetime import date, timedelta
 
 from pydantic import BaseModel
-from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse
+from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+
+from services.rate_limit import limit_customer_ai, limit_customer_speech, limit_public, limit_session_start
+from fastapi.responses import Response
 from sqlalchemy.orm import Session
 
 from auth.security import create_customer_token, get_current_customer
@@ -19,7 +21,7 @@ from services.response_privacy_service import protect_for_speech
 from services.scheme_update_service import get_approved_schemes
 from services.session_service import log_turn, new_session_id
 from services.speech_service import transcribe_upload
-from services.tts_service import synthesize_speech
+from services.tts_service import cached_speech, synthesize_speech
 
 router = APIRouter(prefix="/api/customer", tags=["customer-portal"])
 SUPPORTED_LANGUAGES = {"en", "hi", "mr", "kn", "te"}
@@ -27,7 +29,7 @@ SUPPORTED_LANGUAGES = {"en", "hi", "mr", "kn", "te"}
 class CustomerSessionRequest(BaseModel):
     language: str = "mr"
 
-@router.get("/new-schemes")
+@router.get("/new-schemes", dependencies=[Depends(limit_public)])
 def new_schemes(language: str = "mr", db: Session = Depends(get_db)):
     """Schemes staff approved in the last NEW_SCHEME_DAYS days, for the
     customer portal's "New schemes" notification. Public on purpose: it is
@@ -51,15 +53,15 @@ def new_schemes(language: str = "mr", db: Session = Depends(get_db)):
     ]
 
 
-@router.post("/session/start")
-async def start_customer_session(req: CustomerSessionRequest):
+@router.post("/session/start", dependencies=[Depends(limit_session_start)])
+def start_customer_session(req: CustomerSessionRequest):
     if req.language not in SUPPORTED_LANGUAGES:
         raise HTTPException(400, "Unsupported language")
     session_id = new_session_id()
     return {"session_id": session_id, "language": req.language, "customer_token": create_customer_token(session_id, req.language)}
 
-@router.post("/chat", response_model=ChatResponse)
-async def customer_chat(req: ChatRequest, customer: dict = Depends(get_current_customer), db: Session = Depends(get_db)):
+@router.post("/chat", response_model=ChatResponse, dependencies=[Depends(limit_customer_ai)])
+def customer_chat(req: ChatRequest, customer: dict = Depends(get_current_customer), db: Session = Depends(get_db)):
     if req.session_id != customer.get("sub"):
         raise HTTPException(403, "Session mismatch")
     language = customer.get("language", req.language)
@@ -75,8 +77,8 @@ async def customer_chat(req: ChatRequest, customer: dict = Depends(get_current_c
         result["ui_action"] = "open_eligibility"
     return ChatResponse(**result)
 
-@router.post("/eligibility", response_model=EligibilityResponse)
-async def customer_eligibility(req: EligibilityRequest, customer: dict = Depends(get_current_customer), db: Session = Depends(get_db)):
+@router.post("/eligibility", response_model=EligibilityResponse, dependencies=[Depends(limit_customer_ai)])
+def customer_eligibility(req: EligibilityRequest, customer: dict = Depends(get_current_customer), db: Session = Depends(get_db)):
     if req.session_id != customer.get("sub"):
         raise HTTPException(403, "Session mismatch")
     language = customer.get("language", "en")
@@ -91,15 +93,14 @@ async def customer_eligibility(req: EligibilityRequest, customer: dict = Depends
     log_turn(db, req.session_id, "assistant", language, f"Possible schemes: {names}", f"Possible schemes (pre-check, staff to confirm): {names}")
     return EligibilityResponse(**result)
 
-@router.post("/transcribe")
+@router.post("/transcribe", dependencies=[Depends(limit_customer_ai)])
 async def customer_transcribe(audio: UploadFile = File(...), language: str = Form("mr"), customer: dict = Depends(get_current_customer)):
     language = customer.get("language", language)
     return {"text": await transcribe_upload(audio, language)}
 
-@router.post("/speak")
-async def customer_speak(background_tasks: BackgroundTasks, text: str = Form(...), language: str = Form("mr"), elderly_mode: bool = Form(False), customer: dict = Depends(get_current_customer)):
+@router.post("/speak", dependencies=[Depends(limit_customer_speech)])
+def customer_speak(text: str = Form(...), language: str = Form("mr"), elderly_mode: bool = Form(False), customer: dict = Depends(get_current_customer)):
     language = customer.get("language", language)
     safe_text = protect_for_speech(text, language=language).safe_text
-    filename = synthesize_speech(safe_text, language=language, slow=elderly_mode)
-    background_tasks.add_task(lambda: filename.unlink(missing_ok=True))
-    return FileResponse(filename, media_type="audio/mpeg", filename="reply.mp3", background=background_tasks)
+    audio = cached_speech(safe_text, language, elderly_mode, synthesize_speech)
+    return Response(audio, media_type="audio/mpeg", headers={"Content-Disposition": 'inline; filename="reply.mp3"'})

@@ -140,3 +140,31 @@ class InteractionEvent(Base):
     prompt_tokens = Column(Integer, default=0)
     completion_tokens = Column(Integer, default=0)
     is_demo = Column(Integer, default=0, index=True)
+
+
+class JobLock(Base):
+    """Makes a background job run in only one server process at a time
+    (services/job_lock.py) — e.g. the daily scheme update when the API runs
+    as several processes."""
+
+    __tablename__ = "job_locks"
+    name = Column(String, primary_key=True)
+    locked_until = Column(DateTime, nullable=False)
+    owner = Column(String)
+
+
+class QueueToken(Base):
+    """A customer's place in the branch queue (services/queue_service.py).
+    Stored in the database so the queue survives restarts and is the same
+    for every server process."""
+
+    __tablename__ = "queue_tokens"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    token = Column(String, index=True)
+    customer_name = Column(String)
+    service_type = Column(String)
+    customer_type = Column(String)  # general | elderly | rural
+    priority = Column(Integer, default=0)  # elderly customers go first
+    status = Column(String, default="waiting", index=True)  # waiting | serving | done
+    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    called_at = Column(DateTime, nullable=True)

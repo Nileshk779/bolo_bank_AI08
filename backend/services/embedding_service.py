@@ -22,6 +22,7 @@ Embeddings are L2-normalized, so cosine similarity between two vectors is
 just their dot product — that's what InMemoryVectorStore relies on.
 """
 import logging
+import threading
 
 import numpy as np
 
@@ -35,20 +36,27 @@ MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 class EmbeddingService:
     def __init__(self):
         self._model = None
+        self._lock = threading.Lock()  # requests run in parallel threads; load the model once
 
     def _load_model(self):
         if self._model is not None:
             return self._model
+        with self._lock:
+            if self._model is None:
+                self._model = self._create_model()
+        return self._model
+
+    def _create_model(self):
         try:
             from sentence_transformers import SentenceTransformer
 
             logger.info("Loading embedding model %s (first run downloads it, ~118MB)...", MODEL_NAME)
-            self._model = SentenceTransformer(MODEL_NAME)
+            model = SentenceTransformer(MODEL_NAME)
             logger.info("Embedding model loaded.")
         except Exception as exc:
             logger.error("Failed to load embedding model: %s", exc)
             raise UpstreamServiceError("Embedding model", str(exc)) from exc
-        return self._model
+        return model
 
     def embed(self, texts: list[str]) -> np.ndarray:
         """Returns an (n_texts, embedding_dim) float32 array of L2-normalized

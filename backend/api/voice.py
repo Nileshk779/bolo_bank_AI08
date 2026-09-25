@@ -1,15 +1,16 @@
-from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, UploadFile
-from fastapi.responses import FileResponse
+from fastapi import APIRouter, Depends, File, Form, UploadFile
+from fastapi.responses import Response
 
 from auth.security import get_current_staff
 from services.response_privacy_service import protect_for_speech
+from services.rate_limit import limit_staff_ai
 from services.speech_service import transcribe_upload
-from services.tts_service import synthesize_speech
+from services.tts_service import cached_speech, synthesize_speech
 
 router = APIRouter(prefix="/api", tags=["voice"])
 
 
-@router.post("/transcribe")
+@router.post("/transcribe", dependencies=[Depends(limit_staff_ai)])
 async def transcribe(
     audio: UploadFile = File(...),
     language: str = Form("hi"),
@@ -19,9 +20,8 @@ async def transcribe(
     return {"text": text}
 
 
-@router.post("/speak")
-async def speak(
-    background_tasks: BackgroundTasks,
+@router.post("/speak", dependencies=[Depends(limit_staff_ai)])
+def speak(
     text: str = Form(...),
     language: str = Form("hi"),
     elderly_mode: bool = Form(False),
@@ -40,12 +40,10 @@ async def speak(
     elderly_mode=True uses a slower, clearer speaking pace (Elderly Voice
     Mode).
 
-    The synthesized mp3 is deleted right after it's streamed to the client
-    (via BackgroundTasks) — otherwise every reply would leave a permanent
-    audio file on disk indefinitely, which is both a disk-space leak and an
-    unnecessary retention of (admittedly already privacy-filtered) spoken
-    content."""
+    The synthesized mp3 file is deleted as soon as it has been read
+    (services/tts_service.cached_speech) — no audio accumulates on disk. The
+    audio bytes of the (already privacy-filtered) text are kept in a small
+    in-memory cache so repeated sentences aren't synthesized again."""
     safe_text = protect_for_speech(text, language=language).safe_text
-    filename = synthesize_speech(safe_text, language=language, slow=elderly_mode)
-    background_tasks.add_task(lambda: filename.unlink(missing_ok=True))
-    return FileResponse(filename, media_type="audio/mpeg", filename="reply.mp3", background=background_tasks)
+    audio = cached_speech(safe_text, language, elderly_mode, synthesize_speech)
+    return Response(audio, media_type="audio/mpeg", headers={"Content-Disposition": 'inline; filename="reply.mp3"'})

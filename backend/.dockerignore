@@ -1,0 +1,11 @@
+# Never copy secrets, local databases or environments into the image.
+.env
+*.db
+*.db-*
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+audio_cache/
+main_legacy.py.bak
+*.migrate.lock

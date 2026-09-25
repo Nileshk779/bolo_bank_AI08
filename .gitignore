@@ -2,3 +2,17 @@ backend/venv/
 frontend/node_modules/
 __pycache__/
 *.pyc
+
+# Secrets and local data — never commit these.
+.env
+*.env
+!.env.example
+*.db
+*.db-shm
+*.db-wal
+backend/audio_cache/
+frontend/dist/
+.pytest_cache/
+
+# Lock file used while several processes start and migrate SQLite
+*.migrate.lock

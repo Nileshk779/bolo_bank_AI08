@@ -34,6 +34,7 @@ import asyncio
 import logging
 from contextlib import asynccontextmanager
 
+import anyio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -42,28 +43,20 @@ from auth.seed import seed_authorized_employees, seed_default_staff
 from core.config import settings
 from core.exceptions import register_exception_handlers
 from core.logging import setup_logging
-from database.models import Base
-from database.session import SessionLocal, engine
+from database.migrate import migrate_at_startup
+from services import metrics
 from services.rag_service import retriever
-from services.scheme_update_service import run_update
+from services.scheme_update_service import run_scheduled_update
 
 setup_logging()
 logger = logging.getLogger("bolobank.main")
 settings.validate_runtime_security()
 
-Base.metadata.create_all(engine)
+if settings.AUTO_MIGRATE:
+    migrate_at_startup()
 seed_default_staff()
 seed_authorized_employees()
 
-
-
-def _scheduled_scheme_update() -> None:
-    db = SessionLocal()
-    try:
-        run = run_update(db, trigger="scheduled")
-        logger.info("Scheme update: %s items seen, %s new drafts for staff review", run.items_seen, run.new_drafts)
-    finally:
-        db.close()
 
 
 async def _scheme_update_loop() -> None:
@@ -72,7 +65,7 @@ async def _scheme_update_loop() -> None:
     approve them in the Staff Portal before customers see them."""
     while True:
         try:
-            await asyncio.to_thread(_scheduled_scheme_update)
+            await asyncio.to_thread(run_scheduled_update)
         except Exception:
             logger.exception("Scheduled scheme update failed")
         await asyncio.sleep(settings.SCHEME_UPDATE_INTERVAL_HOURS * 3600)
@@ -90,6 +83,8 @@ async def _warm_up_retrieval() -> None:
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    # Blocking endpoints run in this thread pool; see WORKER_THREADS.
+    anyio.to_thread.current_default_thread_limiter().total_tokens = settings.WORKER_THREADS
     task = asyncio.create_task(_scheme_update_loop()) if settings.SCHEME_AUTO_UPDATE else None
     warm_up = asyncio.create_task(_warm_up_retrieval())
     yield
@@ -101,6 +96,7 @@ async def lifespan(_app: FastAPI):
 app = FastAPI(title="BoloBank API", lifespan=lifespan)
 register_exception_handlers(app)
 
+app.add_middleware(metrics.MetricsMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
@@ -120,5 +116,6 @@ app.include_router(health.router)
 app.include_router(demo_data.router)
 app.include_router(schemes.router)
 app.include_router(dashboard.router)
+app.include_router(metrics.router)
 
 logger.info("BoloBank API started")

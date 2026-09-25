@@ -2,7 +2,10 @@
 import uuid
 from pathlib import Path
 
-from core.config import AUDIO_DIR
+from fastapi import HTTPException
+from starlette.concurrency import run_in_threadpool
+
+from core.config import AUDIO_DIR, settings
 from services.llm_service import transcribe_audio
 
 # Client-supplied filenames are never trusted as part of a filesystem path
@@ -14,6 +17,11 @@ _ALLOWED_AUDIO_EXTENSIONS = {".webm", ".wav", ".mp3", ".m4a", ".ogg", ".mp4", ".
 _DEFAULT_EXTENSION = ".webm"  # what the browser's MediaRecorder produces
 
 
+def _write_file(path: Path, data: bytes) -> None:
+    with open(path, "wb") as f:
+        f.write(data)
+
+
 async def transcribe_upload(audio_file, language: str) -> str:
     """Writes the uploaded audio to a temp file, transcribes it, then
     always cleans up — same lifecycle as the original /api/transcribe."""
@@ -22,10 +30,18 @@ async def transcribe_upload(audio_file, language: str) -> str:
         ext = _DEFAULT_EXTENSION
 
     tmp_path = AUDIO_DIR / f"{uuid.uuid4()}{ext}"
-    with open(tmp_path, "wb") as f:
-        f.write(await audio_file.read())
-
+    # Read at most one byte past the limit, so an oversized upload is
+    # rejected without ever holding the whole thing in memory.
+    limit = int(settings.MAX_AUDIO_UPLOAD_MB * 1024 * 1024)
+    data = await audio_file.read(limit + 1)
+    if len(data) > limit:
+        raise HTTPException(413, f"Recording too large (limit {settings.MAX_AUDIO_UPLOAD_MB:g} MB)")
+    if not data:
+        raise HTTPException(400, "Empty recording")
+    # The Whisper call blocks for a second or more; run it in a worker
+    # thread so this async endpoint doesn't stall every other request.
+    await run_in_threadpool(_write_file, tmp_path, data)
     try:
-        return transcribe_audio(tmp_path, language)
+        return await run_in_threadpool(transcribe_audio, tmp_path, language)
     finally:
         tmp_path.unlink(missing_ok=True)

@@ -1,68 +1,80 @@
 """
-Queue/token management.
+Branch queue / tokens, stored in the database (QueueToken).
 
-The original main.py used a module-level `QUEUE = []` list and a
-`TOKEN_COUNTER = 0` int, mutated via the `global` keyword inside route
-handlers — global mutable state directly inside the API layer. This version
-keeps the exact same in-memory, non-persistent behavior (the queue still
-resets on restart, and still isn't safe across multiple worker processes —
-that trade-off is unchanged), but encapsulates the state inside a single
-QueueService instance instead of bare module globals, so the mutation is
-localized to this one class rather than reachable/mutable from anywhere
-that imports the module.
+Previously an in-memory list: it reset on every restart and each server
+process had its own copy. Now every process shares one queue, and it
+survives restarts. Only today's tokens (branch time zone) are shown.
 
-Moving this to a DB-backed table (so it also survives restarts and works
-across multiple workers) is a reasonable next step, but is a behavior
-change, not just a structural one — deliberately left out of this
-architecture-only refactor.
+Elderly customers get priority: "call next" serves the waiting elderly
+customer who arrived first, before general-queue customers. The response
+shapes are unchanged, so the Queue screen works as before.
 """
-import time
+from datetime import datetime, timedelta
+
+from sqlalchemy.orm import Session
+
+from core.config import settings
+from database.models import QueueToken
+
+PRIORITY = {"elderly": 1}
+
+
+def _today_start_utc(now: datetime | None = None) -> datetime:
+    offset = timedelta(minutes=settings.BRANCH_UTC_OFFSET_MINUTES)
+    local = (now or datetime.utcnow()) + offset
+    return local.replace(hour=0, minute=0, second=0, microsecond=0) - offset
+
+
+def _as_dict(t: QueueToken) -> dict:
+    return {
+        "token": t.token,
+        "customer_name": t.customer_name,
+        "service_type": t.service_type,
+        "customer_type": t.customer_type,
+        "status": t.status,
+        "created_at": t.created_at.timestamp() if t.created_at else None,
+    }
 
 
 class QueueService:
-    def __init__(self):
-        self._queue: list[dict] = []
-        self._token_counter = 0
+    def add_token(self, db: Session, customer_name: str, service_type: str, customer_type: str) -> dict:
+        t = QueueToken(customer_name=customer_name, service_type=service_type, customer_type=customer_type,
+                       priority=PRIORITY.get(customer_type, 0), status="waiting")
+        db.add(t)
+        db.flush()  # assigns the id
+        # Token number counts today's tokens, so it restarts at T001 each day.
+        number = db.query(QueueToken).filter(QueueToken.created_at >= _today_start_utc(), QueueToken.id <= t.id).count()
+        t.token = f"T{number:03d}"
+        db.commit()
+        return _as_dict(t)
 
-    def add_token(self, customer_name: str, service_type: str, customer_type: str) -> dict:
-        self._token_counter += 1
-        token = {
-            "token": f"T{self._token_counter:03d}",
-            "customer_name": customer_name,
-            "service_type": service_type,
-            "customer_type": customer_type,
-            "status": "waiting",
-            "created_at": time.time(),
-        }
-        # Elderly customers are inserted ahead of general-queue waiters (priority lane)
-        if customer_type == "elderly":
-            insert_at = next(
-                (i for i, t in enumerate(self._queue) if t["status"] == "waiting" and t["customer_type"] != "elderly"),
-                len(self._queue),
-            )
-            self._queue.insert(insert_at, token)
-        else:
-            self._queue.append(token)
-        return token
+    def _ordered_waiting(self, db: Session):
+        return (db.query(QueueToken)
+                .filter(QueueToken.status == "waiting", QueueToken.created_at >= _today_start_utc())
+                .order_by(QueueToken.priority.desc(), QueueToken.created_at, QueueToken.id))
 
-    def get_state(self) -> dict:
+    def get_state(self, db: Session) -> dict:
+        today = db.query(QueueToken).filter(QueueToken.created_at >= _today_start_utc())
         return {
-            "waiting": [t for t in self._queue if t["status"] == "waiting"],
-            "serving": [t for t in self._queue if t["status"] == "serving"],
-            "done": [t for t in self._queue if t["status"] == "done"],
+            "waiting": [_as_dict(t) for t in self._ordered_waiting(db)],
+            "serving": [_as_dict(t) for t in today.filter(QueueToken.status == "serving").order_by(QueueToken.called_at)],
+            "done": [_as_dict(t) for t in today.filter(QueueToken.status == "done").order_by(QueueToken.called_at)],
         }
 
-    def call_next(self) -> dict | None:
-        for t in self._queue:
-            if t["status"] == "serving":
-                t["status"] = "done"
-        for t in self._queue:
-            if t["status"] == "waiting":
-                t["status"] = "serving"
-                return t
-        return None
+    def call_next(self, db: Session) -> dict | None:
+        db.query(QueueToken).filter(QueueToken.status == "serving").update({QueueToken.status: "done"}, synchronize_session=False)
+        query = self._ordered_waiting(db)
+        if db.bind.dialect.name == "postgresql":
+            # Two staff members pressing "call next" together get different customers.
+            query = query.with_for_update(skip_locked=True)
+        nxt = query.first()
+        if nxt is None:
+            db.commit()
+            return None
+        nxt.status = "serving"
+        nxt.called_at = datetime.utcnow()
+        db.commit()
+        return _as_dict(nxt)
 
 
-# Single shared instance for the process — same effective lifetime/scope as
-# the original module-level list, just no longer a bare global.
 queue_service = QueueService()

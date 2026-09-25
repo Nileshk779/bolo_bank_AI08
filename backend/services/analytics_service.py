@@ -185,6 +185,7 @@ def summary(db: Session, days: int = 7, now: datetime | None = None) -> dict:
         },
         "cost": {
             "llm_calls": sum(r.llm_calls or 0 for r in cur), "prompt_tokens": p_tok, "completion_tokens": c_tok,
+            "answered_from_cache": sum(1 for r in answers if r.topic and r.answered_by_ai and not r.llm_calls and not r.is_demo),
             "cost_inr": round(cost, 2),
             "cost_per_question_inr": round(cost / len(answers), 3) if answers else None,
             "assumptions": {

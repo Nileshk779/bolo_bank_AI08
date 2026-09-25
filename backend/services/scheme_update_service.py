@@ -349,3 +349,35 @@ def get_approved_schemes(db: Session, today: date | None = None) -> list[dict]:
         s["added_on"] = d.reviewed_at.date().isoformat() if d.reviewed_at else None
         schemes.append(s)
     return schemes
+
+
+def run_scheduled_update() -> None:
+    """One scheduled round. However many processes call this (API servers
+    with SCHEME_AUTO_UPDATE, or worker.py), only the one that claims the
+    database lock runs it; the lock lasts (almost) one interval."""
+    from database.session import SessionLocal
+    from services import job_lock
+
+    db = SessionLocal()
+    try:
+        ttl = max(60.0, settings.SCHEME_UPDATE_INTERVAL_HOURS * 3600 - 60)
+        if not job_lock.acquire(db, "scheme_update", ttl):
+            logger.info("Scheme update: another process is handling this round")
+            return
+        run = run_update(db, trigger="scheduled")
+        logger.info("Scheme update: %s items seen, %s new drafts for staff review", run.items_seen, run.new_drafts)
+    finally:
+        db.close()
+
+
+if __name__ == "__main__":
+    # One-off run for an external scheduler (cron, Windows Task Scheduler,
+    # a Kubernetes CronJob):  python -m services.scheme_update_service
+    from database.session import SessionLocal
+
+    session = SessionLocal()
+    try:
+        result = run_update(session, trigger="scheduled")
+        print(f"Scheme update: {result.items_seen} items seen, {result.new_drafts} new drafts, error={result.error}")
+    finally:
+        session.close()

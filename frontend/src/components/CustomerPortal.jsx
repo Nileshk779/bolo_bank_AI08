@@ -90,13 +90,13 @@ export default function CustomerPortal({ onBack }) {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ session_id: sessionId, text, language, complexity: level, elderly_mode: elderlyMode })
       })
-      if (!res.ok) throw new Error('chat')
+      if (!res.ok) throw new Error(res.status === 429 ? 'busy' : 'chat')
       const data = await res.json()
       if (data.complexity_used) setLevel(data.complexity_used)
       const noteKey = { simpler: 'noteSimpler', reexplain: 'noteReexplain', more_detail: 'noteMore' }[data.level_change]
       setMessages((m) => [...m, { role: 'assistant', text: data.reply_local, visualData: data.visual_data, uiAction: data.ui_action, note: noteKey ? tr(noteKey) : null }])
       setStatusKey('speaking'); await playAudio(data.spoken_response); setStatusKey('')
-    } catch { setStatusKey(''); setMessages((m) => [...m, { role: 'system', text: tr('aiFailed') }]) }
+    } catch (e) { setStatusKey(''); setMessages((m) => [...m, { role: 'system', text: tr(e.message === 'busy' ? 'tooManyRequests' : 'aiFailed') }]) }
   }
 
   const handleRecording = async (blob) => {
@@ -104,9 +104,9 @@ export default function CustomerPortal({ onBack }) {
     try {
       const form = new FormData(); form.append('audio', blob, 'speech.webm'); form.append('language', language)
       const res = await customerFetch('/customer/transcribe', { method: 'POST', body: form })
-      if (!res.ok) throw new Error('stt')
+      if (!res.ok) throw new Error(res.status === 429 ? 'busy' : 'stt')
       const data = await res.json(); await processText(data.text)
-    } catch { setStatusKey(''); setMessages((m) => [...m, { role: 'system', text: tr('recordingFailed') }]) }
+    } catch (e) { setStatusKey(''); setMessages((m) => [...m, { role: 'system', text: tr(e.message === 'busy' ? 'tooManyRequests' : 'recordingFailed') }]) }
     finally { setBusy(false) }
   }
 
